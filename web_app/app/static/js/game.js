@@ -1,7 +1,11 @@
 function startGame() {
     // add listeners 
     document.body.onkeydown = captureThrustCommand;
-    // document.body.onkeyup = captureReleaseThrustCommand;
+    document.body.onkeyup = captureReleaseThrustCommand;
+    let el = document.getElementById("sc")   
+    el.style.left='0px';
+    el.style.top='0px';
+    
     setCmd(0);
 
 }
@@ -19,6 +23,7 @@ function readCmd() {
 
 function setCmd(cmd) {
     document.body.setAttribute("key", cmd);
+    // sendCmd(cmd);
 }
 
 function captureThrustCommand(e){				
@@ -41,17 +46,12 @@ function captureThrustCommand(e){
         }
         
         setCmd(command);
-
-        // console.log("Command:", command,);
-        // sendCmd(command);
     }
 }
 
 function captureReleaseThrustCommand(e) {
     var key_code=e.which||e.keyCode;
     if (37 <= key_code && key_code <= 40) {
-        // console.log("Command:", 0);
-        // sendCmd(0);
         setCmd(0);
     }
 }

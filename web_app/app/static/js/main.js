@@ -1,15 +1,23 @@
 $(document).ready(function () {
     startGame();
-    let i = 0;
+    // var interval = setInterval(update, 40);   
 
-    // while(i<1000) {
-    //     let cmd = document.body.getAttribute("key");
-    //     console.log(cmd);
-    //     sleep(300);
-    //     // $.get( "/get/"+cmd , (data) => {console.log(data)});
-    //     i++;
-    // }
 
 });
 
 
+var interval = setInterval(update, 40);
+
+function update() {
+    var cmd = readCmd();
+    setTimeout(()=>{$.get( "/get/"+cmd , update_pos,)}, 0);
+
+}
+
+function update_pos(pos) {
+    var el = document.getElementById("sc");
+    pos = $.parseJSON(pos);
+    el.style.left=pos[0];
+    el.style.top=pos[1];
+    console.log(pos);
+}
