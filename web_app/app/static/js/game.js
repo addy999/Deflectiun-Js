@@ -2,9 +2,12 @@ function startGame() {
     // add listeners 
     document.body.onkeydown = captureThrustCommand;
     document.body.onkeyup = captureReleaseThrustCommand;
+    // document.body.onmouseout = 
+
     let el = document.getElementById("sc")   
     el.style.left='0px';
     el.style.top='0px';
+    
     
     setCmd(0);
 

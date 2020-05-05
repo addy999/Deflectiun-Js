@@ -14,7 +14,7 @@ def get_status(game):
             "pos" : (scene.sc.x,scene.sc.y),
             "poly" : scene.sc.coords,
             "size" : (scene.sc.width, scene.sc.length),
-            "rot" : scene.sc.vel.theta - math.pi*0,
+            "rot" : scene.sc.theta,
             "gas_level" : scene.sc.gas_level,
             "i_gas_level" : scene.sc._initial_gas_level,
             "thrust" : {
@@ -38,7 +38,14 @@ def get_status(game):
         }
         data.update({"p" + str(i+1) : p_data})
     
-    data.update({"screen" : (length, width)})
+    data.update({
+        "scene" : {
+            "size" : (length, width),
+            "win_region" : scene.win_region,
+            "win_vel" : scene.win_min_velocity,
+            "attempts" : scene.attempts,
+            "completion_score" : scene.completion_score,
+        }})
     
     return data
 
