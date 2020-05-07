@@ -1,14 +1,24 @@
 function startGame() {
+    
+    okSpeed();
+
     // add listeners 
     document.body.onkeydown = captureThrustCommand;
     document.body.onkeyup = captureReleaseThrustCommand;
+
+    var e = document.getElementById("canvas")
+    e.width = e.offsetWidth;
+	e.height = e.offsetHeight;
+
+    MeasureConnectionSpeed();
+    
     // document.body.onmouseout = 
 
+    // document.getElementsByClassName("view")[0].style.display = "unset"
+    
     let el = document.getElementById("sc")   
     el.style.left='0px';
-    el.style.top='0px';
-    
-    
+    el.style.top='0px';    
     setCmd(0);
 
 }
