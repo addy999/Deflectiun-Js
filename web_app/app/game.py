@@ -6,6 +6,7 @@ from copy import deepcopy
 import math
 
 def get_status(game):
+    
     scene =  game.current_scene
     length, width = scene.size
     
@@ -19,7 +20,7 @@ def get_status(game):
             "i_gas_level" : scene.sc._initial_gas_level,
             "thrust" : {
                 "mag" : scene.sc.thrust_mag,
-                "dir" : scene.sc.thrust_direction,
+                "dir" : scene.sc.thrust_direction if scene.sc.thrust else "na",
                 "on" : scene.sc.thrust
             }
         }
@@ -57,6 +58,8 @@ def step(game, cmd):
         "won" : won,
         "fail" : fail
     })
+    
+    # print(status["sc"]["gas_level"])
     
     return status
     

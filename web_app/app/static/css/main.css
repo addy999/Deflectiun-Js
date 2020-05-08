@@ -3,11 +3,25 @@
     width: 100%;
     height: 100%;
     margin: auto;
+    /* color: white; */
+}
+
+.planet {
+    background-color: orange; /* defines the background color of the image */
+    mask: url(../images/world.svg) no-repeat center / contain;
+    -webkit-mask: url(../images/world.svg) no-repeat center / contain;
+    /* box-shadow: 0px 0px 20px 5px orange; */
 }
 
 .asset-container {
     position: relative;
     z-index: 10;
+    color: white;
+}
+
+#sc {
+    transition: box-shadow .2s ease-in-out;
+    transition: background-color .2s ease-in-out;
 }
 
 #overlay {
@@ -36,6 +50,8 @@
     margin-top: 33.5;
     border-style: dotted;
     z-index: 5;
+    background: linear-gradient(90deg, #0c1129 21px, transparent 1%) center, linear-gradient(#0c1129 21px, transparent 1%) center, #beb9d4;
+    background-size: 22px 22px;
 }
 
 canvas {

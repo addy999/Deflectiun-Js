@@ -12,9 +12,9 @@
         <!-- JS -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>  
         <script src="{{ url_for('static', filename='js/jquery.fittext.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/comm.js') }}" type="text/javascript"></script>  
-        <script src="{{ url_for('static', filename='js/game.js') }}" type="text/javascript"></script>  
         <script src="{{ url_for('static', filename='js/utils.js') }}" type="text/javascript"></script>  
+        <script src="{{ url_for('static', filename='js/comm.js') }}" type="text/javascript"></script>  
+        <script src="{{ url_for('static', filename='js/game.js') }}" type="text/javascript"></script>          
         <script src="{{ url_for('static', filename='js/main.js') }}" type="text/javascript"></script>    
 
     </head>
@@ -22,16 +22,17 @@
         <div id="overlay"></div>
         <div class="view">
             <div class="text-center asset-container" id="sc">
-                <svg class="bi bi-caret-up-fill asset" id="sc-symbol" width="100%" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                {% for i in images %}
+                    <img src={{ i["src"] }} id={{ i["name"] }} class="asset thrusts">
+                {% endfor %}
+                <!-- <svg class="bi bi-caret-up-fill asset" id="sc-symbol" width="100%" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 00.753-1.659l-4.796-5.48a1 1 0 00-1.506 0z"/>
                 </svg>
+                <p class="asset" id="-y">|</p> -->
+
             </div>
             {% for p in planets %}
                 <div class="text-center planet asset-container" id={{ "p" + (planets.index(p)+1).__str__() }}>
-                    <img src="{{ url_for('static', filename='images/world.svg') }}" class="asset">
-                    <!-- <svg class="bi bi-circle-half asset" width="100%" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M8 15V1a7 7 0 000 14zm0 1A8 8 0 108 0a8 8 0 000 16z" clip-rule="evenodd"/>
-                    </svg> -->
                 </div>
             {% endfor %}
             <canvas id="canvas" style="width: 100vw; height: 100vh;">.</canvas>
