@@ -50,8 +50,86 @@
     margin-top: 33.5;
     border-style: dotted;
     z-index: 5;
-    background: linear-gradient(90deg, #0c1129 21px, transparent 1%) center, linear-gradient(#0c1129 21px, transparent 1%) center, #beb9d4;
-    background-size: 22px 22px;
+    /* background: linear-gradient(90deg, #0c1129 21px, transparent 1%) center, linear-gradient(#0c1129 21px, transparent 1%) center, #beb9d4;
+    background-size: 22px 22px; */
+    background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+    overflow: hidden;
+}
+
+@keyframes move-twink-back {
+    from {background-position:0 0;}
+    to {background-position:-10000px 5000px;}
+}
+@-webkit-keyframes move-twink-back {
+    from {background-position:0 0;}
+    to {background-position:-10000px 5000px;}
+}
+@-moz-keyframes move-twink-back {
+    from {background-position:0 0;}
+    to {background-position:-10000px 5000px;}
+}
+@-ms-keyframes move-twink-back {
+    from {background-position:0 0;}
+    to {background-position:-10000px 5000px;}
+}
+
+@keyframes move-clouds-back {
+    from {background-position:0 0;}
+    to {background-position:10000px 0;}
+}
+@-webkit-keyframes move-clouds-back {
+    from {background-position:0 0;}
+    to {background-position:10000px 0;}
+}
+@-moz-keyframes move-clouds-back {
+    from {background-position:0 0;}
+    to {background-position:10000px 0;}
+}
+@-ms-keyframes move-clouds-back {
+    from {background-position: 0;}
+    to {background-position:10000px 0;}
+}
+
+.stars, .twinkling, .clouds {
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  width:100%;
+  height:100%;
+  display:block;
+  max-width: 900px;
+  max-height: 700px;
+  margin-top: 33.5;
+  margin-left: 80.5;
+}
+
+.stars {
+  background:#000 url(http://www.script-tutorials.com/demos/360/images/stars.png) repeat top center;
+  z-index:0;
+}
+
+.twinkling{
+  background:transparent url(http://www.script-tutorials.com/demos/360/images/twinkling.png) repeat top center;
+  z-index:1;
+
+  -moz-animation:move-twink-back 200s linear infinite;
+  -ms-animation:move-twink-back 200s linear infinite;
+  -o-animation:move-twink-back 200s linear infinite;
+  -webkit-animation:move-twink-back 200s linear infinite;
+  animation:move-twink-back 200s linear infinite;
+}
+
+.clouds{
+    background:transparent url(http://www.script-tutorials.com/demos/360/images/clouds3.png) repeat top center;
+    z-index:2;
+
+  -moz-animation:move-clouds-back 200s linear infinite;
+  -ms-animation:move-clouds-back 200s linear infinite;
+  -o-animation:move-clouds-back 200s linear infinite;
+  -webkit-animation:move-clouds-back 200s linear infinite;
+  animation:move-clouds-back 200s linear infinite;
 }
 
 canvas {
@@ -71,5 +149,9 @@ canvas {
     margin-left: 80.5;
     margin-top: 33.5;
     display: inline-block;
-    z-index: 0;
+    z-index: 3;
+}
+
+.footer {
+    padding-top: 5vh;
 }

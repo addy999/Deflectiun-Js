@@ -1,5 +1,13 @@
 $(document).ready(function () {
 
+    window.addEventListener("keydown", function(e) {
+        // space and arrow keys
+        // console.log(e.keyCode);
+        if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+            e.preventDefault();
+        }
+    }, false);
+
     startGame();
 
 });

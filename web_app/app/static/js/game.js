@@ -97,14 +97,14 @@ function update_screen(game_data) {
     sc_el.style.height = game_data.sc.size[1];
 
     // Styling
-    sc_el.style.boxShadow = "0px 0px 0px 0px rgba(255,255,255,0.25)";
-    sc_el.style.borderRadius = "90%";
-    sc_el.style.backgroundColor = "rgba(255,255,255,0)";
+    // sc_el.style.boxShadow = "0px 0px 0px 0px rgba(255,255,255,0.25)";
+    // sc_el.style.borderRadius = "90%";
+    // sc_el.style.backgroundColor = "rgba(255,255,255,0)";
 
-    if (game_data.sc.thrust.on) {
-        sc_el.style.boxShadow = "0px 0px 20px 5px rgba(255,255,255,0.5)";
-        sc_el.style.backgroundColor = "rgba(255,255,255,0.25)";
-    }
+    // if (game_data.sc.thrust.on) {
+    //     sc_el.style.boxShadow = "0px 0px 20px 5px rgba(255,255,255,0.5)";
+    //     sc_el.style.backgroundColor = "rgba(255,255,255,0.25)";
+    // }
 
     // SC Img
     thrusts.forEach(element => {
