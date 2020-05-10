@@ -11,7 +11,6 @@ $(document).ready(function () {
 });
 
 var interval = setInterval(update, 40);
-// var speed_check = setInterval(MeasureConnectionSpeed, 10000);
 var d = 0;
 
 function update() {
