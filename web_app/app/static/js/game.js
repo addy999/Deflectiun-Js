@@ -122,7 +122,17 @@ function update_screen(game_data) {
         d += 0.1;
 
         // Orbits
-        ellipse(cxt, p_game_data.orbit.center[0], p_game_data.orbit.center[1], p_game_data.orbit.a, p_game_data.orbit.b);
+        ellipse(cxt, p_game_data.orbit.center[0], game_data.scene.size[1] -p_game_data.orbit.center[1], p_game_data.orbit.a, p_game_data.orbit.b);
+        // cxt.save(); // save state
+        // cxt.fillRect(p_game_data.pos[0], game_data.scene.size[1] -p_game_data.pos[1], 1, 1);
+        // cxt.lineWidth = 25;
+        // cxt.strokeStyle = "#37ff08";
+        // cxt.setLineDash([0,0]);
+        // cxt.restore();
+        // cxt.stroke();
+        
+
+        // Hide planet if out of screen
         if((0<=  p_game_data.pos[0] - p_game_data.radius) && ( p_game_data.pos[0] - p_game_data.radius <= game_data.scene.size[0]) && (0 <= p_game_data.pos[1] - p_game_data.radius) && (p_game_data.pos[1] - p_game_data.radius <= game_data.scene.size[1])){
             p.style.display = "block";
         }
