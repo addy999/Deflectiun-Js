@@ -13,6 +13,7 @@ def get_status(game):
     data = {
         "sc" : {
             "pos" : (scene.sc.x,scene.sc.y),
+            "speed" : round(scene.sc.vel.mag),
             "poly" : scene.sc.coords,
             "size" : (scene.sc.width, scene.sc.length),
             "rot" : scene.sc.theta,

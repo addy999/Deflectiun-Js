@@ -7,16 +7,31 @@ function sleep(milliseconds) {
         break;
       }
     }
-  }
+}
+
+function overlayOff() {
+  var el = document.getElementById("overlay");
+  el.style.opacity = 0;
+  // el.style.backgroundColor = "none";
+  // sleep(500);
+  el.style.display = "none"
+}
+
+function overlayOn(color, text) {
+  var el = document.getElementById("overlay");
+  el.style.display = "block"
+  el.style.opacity = 100;
+  // sleep(500);
+  el.style.backgroundColor = color;
+  el.children[0].textContent = text;
+}
   
 function okSpeed() {
-    document.getElementById("overlay").style.opacity = 0;
-    document.getElementById("overlay").style.display = "none"
+  overlayOff();
 }
 
 function slowSpeed() {
-  document.getElementById("overlay").style.opacity = 100;
-  document.getElementById("overlay").style.display = "block";
+  overlayOn("black", "Slow Speed bro.")
 }
 
 function speedWatch(e){

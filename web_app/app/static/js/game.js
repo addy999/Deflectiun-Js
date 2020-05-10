@@ -96,16 +96,6 @@ function update_screen(game_data) {
     sc_el.style.width = game_data.sc.size[0];
     sc_el.style.height = game_data.sc.size[1];
 
-    // Styling
-    // sc_el.style.boxShadow = "0px 0px 0px 0px rgba(255,255,255,0.25)";
-    // sc_el.style.borderRadius = "90%";
-    // sc_el.style.backgroundColor = "rgba(255,255,255,0)";
-
-    // if (game_data.sc.thrust.on) {
-    //     sc_el.style.boxShadow = "0px 0px 20px 5px rgba(255,255,255,0.5)";
-    //     sc_el.style.backgroundColor = "rgba(255,255,255,0.25)";
-    // }
-
     // SC Img
     thrusts.forEach(element => {
         if(element.id!=game_data.sc.thrust.dir){
@@ -141,5 +131,17 @@ function update_screen(game_data) {
             p.style.display = "none";
         }    
 
+    }
+
+    // Hud
+    document.getElementById("speed").textContent = game_data.sc.speed;
+    document.getElementById("gas_level").textContent = game_data.sc.gas_level;
+
+    // Win
+    if(game_data.won) {
+        overlayOn("rgba(0,255,0,0.8)", "Congrats!");
+    }
+    if(game_data.fail) {
+        overlayOn("rgba(255,0,0,0.8)", ":(");
     }
 }

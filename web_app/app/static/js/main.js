@@ -1,8 +1,6 @@
 $(document).ready(function () {
 
     window.addEventListener("keydown", function(e) {
-        // space and arrow keys
-        // console.log(e.keyCode);
         if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
             e.preventDefault();
         }
@@ -21,16 +19,16 @@ function update() {
     setTimeout(()=>{$.get( "/get/"+cmd , update_screen)}, 0);
 }
 
-function speedCheck() {
-    MeasureConnectionSpeed();
-    $.get( "/speedcheck" , (okay) => {
-        okay = $.parseJSON(okay);
-        if(okay) {
-            overlay_off();
-        }
-        else {
-            overlay_on();
-        }
-    })
-}
+// function speedCheck() {
+//     MeasureConnectionSpeed();
+//     $.get( "/speedcheck" , (okay) => {
+//         okay = $.parseJSON(okay);
+//         if(okay) {
+//             overlay_off();
+//         }
+//         else {
+//             overlay_on();
+//         }
+//     })
+// }
 

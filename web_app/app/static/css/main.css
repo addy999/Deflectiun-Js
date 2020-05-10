@@ -8,9 +8,8 @@
 
 .planet {
     background-color: orange; /* defines the background color of the image */
-    mask: url(../images/world.svg) no-repeat center / contain;
-    -webkit-mask: url(../images/world.svg) no-repeat center / contain;
-    /* box-shadow: 0px 0px 20px 5px orange; */
+    mask: url(../images/planet.svg) no-repeat center / contain;
+    -webkit-mask: url(../images/planet.svg) no-repeat center / contain;
 }
 
 .asset-container {
@@ -25,18 +24,22 @@
 }
 
 #overlay {
-    position: fixed; /* Sit on top of the page content */
-    display: block; /* Hidden by default */
-    width: 100%; /* Full width (cover the whole page) */
-    height: 100%; /* Full height (cover the whole page) */
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0,0,0,0.8); /* Black background with opacity */
-    z-index: 20; /* Specify a stack order in case you're using a different order for other elements */
-    /* cursor: pointer; Add a pointer on hover */
+    position: relative; 
+    display: block; 
+    width: inherit; 
+    height: inherit; 
+    background-color: rgba(0,0,0,0); 
+    z-index: 20; 
     transition: all .5s ease-in-out;
+}
+#overlay-text {
+    /* position: absolute; */
+    /* top: 50%; */
+    /* left: 50%; */
+    font-size: 50px;
+    color: white;
+    /* padding-top: 50%; */
+    transform: translate(0%,500%);
 }
 
 .view {
