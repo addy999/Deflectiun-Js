@@ -83,7 +83,6 @@ function ellipse(context, cx, cy, rx, ry){
 
 function update_screen(game_data) {
 
-    // t0 = performance.now();
     var sc_el = document.getElementById("sc");
     var thrusts = Array.from(document.getElementsByClassName("thrusts"));
     var planets = document.getElementsByClassName("planet");
@@ -132,6 +131,16 @@ function update_screen(game_data) {
         }    
 
     }
+
+    // Win region
+    var points = game_data.scene.win_region;
+    cxt.beginPath();
+    cxt.moveTo(points[0][0], game_data.scene.size[1] - points[0][1]);
+    cxt.lineTo(points[1][0], game_data.scene.size[1] - points[1][1]);
+    cxt.lineWidth = 25;
+    cxt.strokeStyle = "#37ff08";
+    cxt.setLineDash([0,0]);
+    cxt.stroke();
 
     // Hud
     document.getElementById("speed").textContent = game_data.sc.speed;
