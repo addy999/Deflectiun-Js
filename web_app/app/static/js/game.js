@@ -1,5 +1,9 @@
 function startGame() {
 
+    var canvas = document.getElementById("canvas");
+    var context = canvas.getContext("2d");
+    context.clearRect(0, 0, canvas.width, canvas.height)
+
     okSpeed();
     
     // Add listeners 
@@ -9,9 +13,8 @@ function startGame() {
     MeasureConnectionSpeed(); // iniital check
 
     // Adjust view 
-    var e = document.getElementById("canvas")
-    e.width = e.offsetWidth;
-    e.height = e.offsetHeight;
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
     
     let el = document.getElementById("sc")   
     el.style.left='0px';
@@ -155,12 +158,14 @@ function update_screen(game_data) {
     // Hud
     document.getElementById("speed").textContent = game_data.sc.speed;
     document.getElementById("gas_level").textContent = game_data.sc.gas_level;
+    document.getElementById("speed-req").textContent = game_data.scene.win_vel;
+    document.getElementById("attempts").textContent = game_data.scene.attempts;
 
     // Win
-    if(game_data.won) {
-        overlayOn("rgba(0,255,0,0.8)", "Congrats!");
-    }
-    if(game_data.fail) {
-        overlayOn("rgba(255,0,0,0.8)", ":(");
-    }
+    // if(game_data.won) {
+    //     overlayOn("rgba(0,255,0,0.8)", "Congrats!");
+    // }
+    // if(game_data.fail) {
+    //     overlayOn("rgba(255,0,0,0.8)", ":(");
+    // }
 }

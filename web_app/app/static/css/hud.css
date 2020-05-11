@@ -21,6 +21,14 @@
     height: min-content;
     padding: 5px;
 }
+.req {
+    transform: translate(0px, 355px);
+    color: white;
+    background-color: #007bff85;
+    width: max-content;
+    height: min-content;
+    padding: 5px;
+}
 
 /* #speed {
     transform: translate(10px, 0px);

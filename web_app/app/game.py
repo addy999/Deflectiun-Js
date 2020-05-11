@@ -2,6 +2,7 @@ import sys
 sys.path.append("../../DeflectiunCore")
 
 from deflectiun_core.game import *
+from deflectiun_core.scene import LevelBuilder
 from copy import deepcopy
 import math
 
@@ -59,7 +60,10 @@ def step(game, cmd):
         "won" : won,
         "fail" : fail
     })
-    
+    if won:
+        print("WON")
+    if fail:
+        print("FAIL")
     # print(status["sc"]["gas_level"])
     
     return status
