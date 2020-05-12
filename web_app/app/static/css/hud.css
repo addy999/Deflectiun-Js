@@ -22,11 +22,11 @@
     padding: 5px;
 }
 .req {
-    transform: translate(0px, 355px);
+    transform: translate(0px, 325px);
     color: white;
     background-color: #007bff85;
     width: max-content;
-    height: min-content;
+    height: max-content;
     padding: 5px;
 }
 

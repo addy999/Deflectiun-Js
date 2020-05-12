@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>spaceshots_core</title>
+        <title>Spaceshots</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta id="testimg" src="{{ url_for('static', filename='images/test.png') }}">
         <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
@@ -20,9 +20,9 @@
 
     </head>
     <body key=0>
-        <!-- <div id="overlay">
-            <h1 id="overlay-text"></h1>
-        </div> -->
+        <div id="logo" class="text-center">
+            <img id="logo-img" src="{{ url_for('static', filename='images/' + logo) }}">
+        </div>
         <div class="view">
             <div id="overlay">
                 <h1 class="text-center" id="overlay-text"></h1>
@@ -51,9 +51,11 @@
                     <p id="speed-req">0</p>
                     <p><u>Attempts</u></p>
                     <p id="attempts">0</p>
+                    <p id="msg">...</p>
                 </div>
             </div>
-
+            
+            <!-- Background -->
             <div class="stars"></div>
             <div class="twinkling"></div>
             <!-- <div class="clouds"></div> -->

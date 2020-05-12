@@ -33,7 +33,7 @@ for i in os.listdir(images_path):
 def index():
     global _game
     _game = Game(scenes=[builder.create("medium")], fps=25)
-    return render_template('index.html', planets = scene.planets, images=imgs)
+    return render_template('index.html', planets = scene.planets, images=imgs, logo="draft1.png")
 
 @app.route('/speedupdate', methods=['POST'])
 def speed_update():
