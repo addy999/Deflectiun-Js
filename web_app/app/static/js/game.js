@@ -160,6 +160,8 @@ function update_screen(game_data) {
     document.getElementById("gas_level").textContent = game_data.sc.gas_level;
     document.getElementById("speed-req").textContent = game_data.scene.win_vel;
     document.getElementById("attempts").textContent = game_data.scene.attempts;
+    if(game_data.message.length > 1){document.getElementById("msg").textContent = game_data.message;}
+    
 
     // Win
     // if(game_data.won) {

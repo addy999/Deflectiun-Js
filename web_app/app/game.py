@@ -54,17 +54,13 @@ def get_status(game):
 
 def step(game, cmd):
     
-    won, fail = game.step(cmd)
+    won, fail, message = game.step(cmd)
     status = get_status(game)
     status.update({
         "won" : won,
-        "fail" : fail
+        "fail" : fail,
+        "message" : message
     })
-    if won:
-        print("WON")
-    if fail:
-        print("FAIL")
-    # print(status["sc"]["gas_level"])
-    
+
     return status
     
