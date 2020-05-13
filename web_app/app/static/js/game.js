@@ -163,7 +163,7 @@ function update_screen(game_data) {
 
     // Glow
     var max_dist = (game_data.scene.size[0]**2+game_data.scene.size[1]**2)**0.5;
-    var pixel_dist = Math.pow(2.71828,5*(max_dist-game_data.sc.closest_dist_to_planet)/max_dist)-20;
+    var pixel_dist = Math.pow(2.71828,4*(max_dist-game_data.sc.closest_dist_to_planet)/max_dist)-30;
     document.getElementsByClassName("view")[0].style.boxShadow = "0px 0px 57px " +  pixel_dist.toString() + "px rgba(255,166,0,1)";
 
     // Win
