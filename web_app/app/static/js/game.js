@@ -125,7 +125,7 @@ function update_screen(game_data) {
         d += 0.1;
 
         // Orbits
-        ellipse(cxt, p_game_data.orbit.center[0], game_data.scene.size[1] -p_game_data.orbit.center[1], p_game_data.orbit.a, p_game_data.orbit.b);
+        ellipse(cxt, p_game_data.orbit.center[0], game_data.scene.size[1] -p_game_data.orbit.center[1], p_game_data.orbit.a, p_game_data.orbit.b);        
         // cxt.save(); // save state
         // cxt.fillRect(p_game_data.pos[0], game_data.scene.size[1] -p_game_data.pos[1], 1, 1);
         // cxt.lineWidth = 25;
@@ -133,7 +133,6 @@ function update_screen(game_data) {
         // cxt.setLineDash([0,0]);
         // cxt.restore();
         // cxt.stroke();
-        
 
         // Hide planet if out of screen
         if((0<=  p_game_data.pos[0] - p_game_data.radius) && ( p_game_data.pos[0] - p_game_data.radius <= game_data.scene.size[0]) && (0 <= p_game_data.pos[1] - p_game_data.radius) && (p_game_data.pos[1] - p_game_data.radius <= game_data.scene.size[1])){
@@ -161,7 +160,11 @@ function update_screen(game_data) {
     document.getElementById("speed-req").textContent = game_data.scene.win_vel;
     document.getElementById("attempts").textContent = game_data.scene.attempts;
     if(game_data.message.length > 1){document.getElementById("msg").textContent = game_data.message;}
-    
+
+    // Glow
+    var max_dist = (game_data.scene.size[0]**2+game_data.scene.size[1]**2)**0.5;
+    var pixel_dist = Math.pow(2.71828,5*(max_dist-game_data.sc.closest_dist_to_planet)/max_dist)-20;
+    document.getElementsByClassName("view")[0].style.boxShadow = "0px 0px 57px " +  pixel_dist.toString() + "px rgba(255,166,0,1)";
 
     // Win
     // if(game_data.won) {

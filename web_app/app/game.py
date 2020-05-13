@@ -2,7 +2,7 @@ import sys
 sys.path.append("../../DeflectiunCore")
 
 from spaceshots_core.game import *
-from spaceshots_core.scene import LevelBuilder
+from spaceshots_core.scene import LevelBuilder, closest_dist_to_sc
 from copy import deepcopy
 import math
 
@@ -20,6 +20,7 @@ def get_status(game):
             "rot" : scene.sc.theta,
             "gas_level" : scene.sc.gas_level,
             "i_gas_level" : scene.sc._initial_gas_level,
+            "closest_dist_to_planet" : closest_dist_to_sc(scene.sc, scene.planets),
             "thrust" : {
                 "mag" : scene.sc.thrust_mag,
                 "dir" : scene.sc.thrust_direction if scene.sc.thrust else "na",
