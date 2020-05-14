@@ -5,7 +5,7 @@ from flask import render_template, request
 from .game import *
 import numpy as np
 
-OKAY_FOR_SPEED = True
+print("LOAD ROUTES")
 
 screen_x, screen_y = 900, 700
 sc = Spacecraft('Test', mass = 100, thrust_force = 2000, gas_level = 500, width=35, length=35)
@@ -16,7 +16,11 @@ planet2 = Planet('Test2', mass = 2e16, orbit = Orbit(a=screen_x*800/1920, b=scre
 
 scene = Scene((screen_x, screen_y),sc, [planet, planet2], win_region = ([0,screen_y], [screen_x, screen_y]), win_velocity = 90.0)
 builder = LevelBuilder(screen_x, screen_y)
-_game = None
+_game = Game(scenes=[builder.create("easy")], fps=25)
+
+def refresh_game():
+    global _game
+    _game = Game(scenes=[builder.create("easy")], fps=25)
 
 # Load sprites 
 images_path = os.path.abspath("app/static/images/ship2")
@@ -30,27 +34,14 @@ for i in os.listdir(images_path):
 
 @app.route('/')
 @app.route('/index')
-def index():
-    global _game
-    _game = Game(scenes=[builder.create("easy")], fps=25)
+def index():    
+    print("LOAD INDEX")
+    refresh_game() # reset level
     return render_template('index.html', planets = scene.planets, images=imgs, logo="draft1.png")
-
-@app.route('/speedupdate', methods=['POST'])
-def speed_update():
-    global OKAY_FOR_SPEED
-    speed = float(request.form['speed'])    
-    OKAY_FOR_SPEED = speed>=SPEED_THRESHOLD
-    return {}
-
-@app.route('/speedcheck')
-def speed_check():
-    global OKAY_FOR_SPEED
-    return json.dumps(OKAY_FOR_SPEED)
 
 @app.route('/get/<cmd>')
 def get(cmd):
     global _game
     cmd = int(cmd)
     status = step(_game, cmd)
-    status.update({"speed" : OKAY_FOR_SPEED})
     return json.dumps(status)
