@@ -6,17 +6,11 @@ $(document).ready(function () {
         }
     }, false);
 
-    startGame();
+    // startGame();
 
 });
 
-var interval = setInterval(update, 40);
-var d = 0;
-
-function update() {
-    var cmd = readCmd();
-    setTimeout(()=>{$.get( "/get/"+cmd , update_screen)}, 0);
-}
+// var interval = setInterval(update, 40);
 
 // function speedCheck() {
 //     MeasureConnectionSpeed();

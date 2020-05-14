@@ -1,3 +1,6 @@
+var interval = null;
+var d = 0;
+
 function startGame() {
 
     var canvas = document.getElementById("canvas");
@@ -21,13 +24,15 @@ function startGame() {
     el.style.top='0px';    
     setCmd(0);
 
+    interval = setInterval(() => {
+        var cmd = readCmd();
+        setTimeout(()=>{$.get( "/get/"+cmd , update_screen)}, 0);
+    }, 40);
+
 }
 
-function exitGame() {
-    // remove listeners 
-    document.body.onkeydown = null;
-    document.body.onkeyup = null;
-
+function stopGame() {
+    clearInterval(interval);
 }
 
 function readCmd() {
