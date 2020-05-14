@@ -28,3 +28,7 @@ def get(cmd):
     cmd = int(cmd)
     status = step(cmd)
     return json.dumps(status)
+
+@app.route('/load/')
+def load():
+    return json.dumps(load_game())

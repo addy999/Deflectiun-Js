@@ -37,7 +37,7 @@
                 </div>
             {% endfor %}
 
-            <canvas id="canvas">.</canvas>
+            <canvas class="canvas" id="canvas">.</canvas>
 
             <div class="hud">
                 <div class="monitor">
@@ -61,8 +61,16 @@
             <!-- <div class="clouds"></div> -->
         </div>
         
+        <div id="buttons" class="text-center">
+            <button type="button" onclick="loadGame()">Load game</button>
+            <button type="button" onclick="startGame()">Resume game</button>
+            <button type="button" onclick="pauseGame()">Pause game</button>
+        </div>
+
         <div class="footer text-center">
-            <p>Developed with love in Toronto.</p>
+            <p>Developed with <svg class="bi bi-heart-fill" width="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" clip-rule="evenodd"/>
+              </svg> in Toronto.</p>
             <a href="https://www.freepik.com/free-photos-vectors/business">Business vector created by macrovector - www.freepik.com</a>
         </div>
     </body>

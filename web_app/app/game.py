@@ -65,6 +65,18 @@ def step(cmd):
 
     return status
 
+def load_game():
+    global _game
+    _game = Game(scenes=[builder.create("easy") for i in range(10)], fps=25)
+    status = get_status(_game)
+    status.update({
+        "won" : False,
+        "fail" : False,
+        "message" : ""
+    })
+    return status
+    
+
 screen_x, screen_y = 900, 700
 sc = Spacecraft('Test', mass = 100, thrust_force = 2000, gas_level = 500, width=35, length=35)
 
@@ -74,5 +86,5 @@ planet2 = Planet('Test2', mass = 2e16, orbit = Orbit(a=screen_x*800/1920, b=scre
 
 scene = Scene((screen_x, screen_y),sc, [planet, planet2], win_region = ([0,screen_y], [screen_x, screen_y]), win_velocity = 90.0)
 builder = LevelBuilder(screen_x, screen_y)
-_game = Game(scenes=[builder.create("easy") for i in range(10)], fps=25)
+_game = None
     

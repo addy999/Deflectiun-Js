@@ -5,6 +5,7 @@
     height: 100%;
     margin: auto;
     top: 0;
+    display: none;
 }
 
 .monitor {

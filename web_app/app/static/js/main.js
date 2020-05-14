@@ -6,7 +6,7 @@ $(document).ready(function () {
         }
     }, false);
 
-    startGame();
+    // startGame();
 
 });
 

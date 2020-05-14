@@ -1,11 +1,10 @@
 var interval = null;
 var d = 0;
 
-function startGame() {
+function loadGame() {
 
     var canvas = document.getElementById("canvas");
     var context = canvas.getContext("2d");
-    context.clearRect(0, 0, canvas.width, canvas.height)
 
     okSpeed();
     
@@ -22,16 +21,27 @@ function startGame() {
     let el = document.getElementById("sc")   
     el.style.left='0px';
     el.style.top='0px';    
-    setCmd(0);
+    
+    var to_display = Array("stars", "twinkling", "hud");
+    to_display.forEach((a) => {
+        document.getElementsByClassName(a)[0].style.display = "block";
+    })
+    document.getElementById("sc").style.display = "block";
 
+    setCmd(0);
+    // Draw screen
+    $.get( "/load" , update_screen);
+
+}
+
+function startGame() {
     interval = setInterval(() => {
         var cmd = readCmd();
         setTimeout(()=>{$.get( "/get/"+cmd , update_screen)}, 0);
     }, 40);
-
 }
 
-function stopGame() {
+function pauseGame() {
     clearInterval(interval);
 }
 
@@ -94,8 +104,11 @@ function update_screen(game_data) {
     var sc_el = document.getElementById("sc");
     var thrusts = Array.from(document.getElementsByClassName("thrusts"));
     var planets = document.getElementsByClassName("planet");
-    var cxt = document.getElementById("canvas").getContext("2d");
+    var canvas = document.getElementById("canvas");
+    var cxt = canvas.getContext("2d");
+
     game_data = $.parseJSON(game_data);
+    cxt.clearRect(0, 0, canvas.width, canvas.height)
 
     // SC
     sc_el.style.left = game_data.sc.pos[0] - game_data.sc.size[0]/2;
