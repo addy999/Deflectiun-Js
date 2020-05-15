@@ -1,10 +1,12 @@
 var interval = null;
 var d = 0;
+var id = null;
 
 function loadGame() {
 
     var canvas = document.getElementById("canvas");
     var context = canvas.getContext("2d");
+    id = makeid(5); // session id
     
     // Add listeners 
     document.body.onkeydown = captureThrustCommand;
@@ -28,15 +30,15 @@ function loadGame() {
     document.getElementById("sc").style.display = "block";
 
     setCmd(0);
-    // Draw screen
-    $.get( "/load" , update_screen);
 
+    // Draw screen
+    $.get( "/load/"+id , update_screen);
 }
 
 function startGame() {
     interval = setInterval(() => {
         var cmd = readCmd();
-        $.get( "/get/"+cmd , update_screen);
+        $.get( "/get/"+ id + "/" + cmd , update_screen);
     }, 40);
 }
 

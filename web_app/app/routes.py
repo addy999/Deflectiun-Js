@@ -19,21 +19,21 @@ for i in os.listdir(images_path):
 @app.route('/index')
 def index():    
     session.pop("loaded", None)
-    return render_template('index.html', planets = scene.planets, images=imgs, logo="draft1.png")
+    return render_template('index.html', planets = [1,1], images=imgs, logo="draft1.png")
 
-@app.route('/get/<cmd>')
-def get(cmd):
+@app.route('/get/<id>/<cmd>')
+def get(id, cmd):
     if "loaded" in session:
         cmd = int(cmd)
-        status = step(cmd)
+        status = step(id, cmd)
         return json.dumps(status)
     else:
         return json.dumps(False)
 
-@app.route('/load/')
-def load():
+@app.route('/load/<id>')
+def load(id):
     session["loaded"] = True
-    return json.dumps(load_game())
+    return json.dumps(load_game(id))
 
 # @socketio.on('my event')
 # def test_message(message):
