@@ -1,4 +1,5 @@
 var SPEED_THRESHOLD = 8; // mbps
+var imageAddr = "../static/images/test.png";
 
 function sleep(milliseconds) {
     var start = new Date().getTime();
@@ -36,8 +37,8 @@ function slowSpeed() {
 
 function speedWatch(e){
 
-  console.log("Speed", e.target.downlink, "mbps");
-  if (e.target.downlink < SPEED_THRESHOLD && e.target.downlink != 0.15) {
+  console.log("Speed", navigator.connection.downlink, "mbps");
+  if (navigator.connection.downlink < SPEED_THRESHOLD && navigator.connection.downlink != 0.15) {
     slowSpeed();
   }
   else {
@@ -47,7 +48,6 @@ function speedWatch(e){
 }
 
 function MeasureConnectionSpeed() {
-    var imageAddr = document.getElementById("testimg").getAttribute("src");
     var downloadSize = 1562018; //bytes
     var startTime, endTime;
     var download = new Image();
@@ -66,10 +66,6 @@ function MeasureConnectionSpeed() {
         else {
           okSpeed();
         }
-
-        // $.post( "/speedupdate", {
-        //   speed: speedMbps 
-        // });
     }
     
     startTime = (new Date()).getTime();
