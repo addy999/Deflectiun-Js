@@ -14,5 +14,5 @@ log = logging.getLogger('werkzeug')
 log.disabled = True
 
 if __name__ == "__main__":
-  app.run(debug=False, threaded=True, processes=2)
+  app.run(debug=False)
   # socketio.run(app)
