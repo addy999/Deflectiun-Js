@@ -76,7 +76,6 @@ def load_game():
     })
     return status
     
-
 screen_x, screen_y = 900, 700
 sc = Spacecraft('Test', mass = 100, thrust_force = 2000, gas_level = 500, width=35, length=35)
 

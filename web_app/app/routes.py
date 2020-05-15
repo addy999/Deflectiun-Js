@@ -4,8 +4,7 @@ from app import app
 from flask import render_template, request
 from .game import *
 import numpy as np
-
-print("LOAD ROUTES")
+from flask_socketio import emit
 
 # Load sprites 
 images_path = os.path.abspath("app/static/images/ship2")
@@ -20,7 +19,6 @@ for i in os.listdir(images_path):
 @app.route('/')
 @app.route('/index')
 def index():    
-    print("LOAD INDEX")
     return render_template('index.html', planets = scene.planets, images=imgs, logo="draft1.png")
 
 @app.route('/get/<cmd>')
@@ -32,3 +30,11 @@ def get(cmd):
 @app.route('/load/')
 def load():
     return json.dumps(load_game())
+
+# @socketio.on('my event')
+# def test_message(message):
+#     emit('my response', {'data': message['data']})
+    
+# @socketio.on('connect')
+# def test_connect():
+#     emit('my response', {'data': 'Connected'})
