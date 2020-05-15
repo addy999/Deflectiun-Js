@@ -1,10 +1,9 @@
 import os
 import json
 from app import app
-from flask import render_template, request
+from flask import render_template, session
+# from flask_socketio import emit
 from .game import *
-import numpy as np
-from flask_socketio import emit
 
 # Load sprites 
 images_path = os.path.abspath("app/static/images/ship2")
@@ -19,16 +18,21 @@ for i in os.listdir(images_path):
 @app.route('/')
 @app.route('/index')
 def index():    
+    session.pop("loaded", None)
     return render_template('index.html', planets = scene.planets, images=imgs, logo="draft1.png")
 
 @app.route('/get/<cmd>')
 def get(cmd):
-    cmd = int(cmd)
-    status = step(cmd)
-    return json.dumps(status)
+    if "loaded" in session:
+        cmd = int(cmd)
+        status = step(cmd)
+        return json.dumps(status)
+    else:
+        return json.dumps(False)
 
 @app.route('/load/')
 def load():
+    session["loaded"] = True
     return json.dumps(load_game())
 
 # @socketio.on('my event')
