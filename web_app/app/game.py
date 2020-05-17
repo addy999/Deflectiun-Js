@@ -13,14 +13,14 @@ def get_status(game):
     
     data = {
         "sc" : {
-            "pos" : (scene.sc.x,scene.sc.y),
+            "pos" : (round(scene.sc.x,1),round(scene.sc.y,1)),
             "speed" : round(scene.sc.vel.mag),
-            "poly" : scene.sc.coords,
+            "poly" : [[round(e,1) for e in i] for i in scene.sc.coords],
             "size" : (scene.sc.width, scene.sc.length),
-            "rot" : scene.sc.theta,
+            "rot" : round(scene.sc.theta,1),
             "gas_level" : scene.sc.gas_level,
             "i_gas_level" : scene.sc._initial_gas_level,
-            "closest_dist_to_planet" : closest_dist_to_sc(scene.sc, scene.planets),
+            "closest_dist_to_planet" : round(closest_dist_to_sc(scene.sc, scene.planets),1),
             "thrust" : {
                 "mag" : scene.sc.thrust_mag,
                 "dir" : scene.sc.thrust_direction if scene.sc.thrust else "na",
@@ -32,12 +32,12 @@ def get_status(game):
     data.update({"n_planets" : len(scene.planets)})    
     for i,p in enumerate(scene.planets):
         p_data = {
-            "pos": (p.x,p.y),
-            "radius" : p.radius,
+            "pos": [round(i) for i in (p.x,p.y)],
+            "radius" : round(p.radius,1),
             "orbit" : {
-                "center" : (p.orbit.center_x, p.orbit.center_y),
-                "a" : p.orbit.a,
-                "b" : p.orbit.b
+                "center" : [round(i,1) for i in (p.orbit.center_x, p.orbit.center_y)],
+                "a" : round(p.orbit.a,1),
+                "b" : round(p.orbit.b,1)
             }
         }
         data.update({"p" + str(i+1) : p_data})
@@ -45,7 +45,7 @@ def get_status(game):
     data.update({
         "scene" : {
             "size" : (length, width),
-            "win_region" : scene.win_region,
+            "win_region" : [[round(i,1) for i in point] for point in scene.win_region],
             "win_vel" : scene.win_min_velocity,
             "attempts" : scene.attempts,
             "completion_score" : scene.completion_score,
