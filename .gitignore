@@ -1,5 +1,5 @@
 *.pyc
 .vscode
-cert.pem
-key.pem
+*.pem
+*.pkl
 web_app/app/__pycache__/*.pyc

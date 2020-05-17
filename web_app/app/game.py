@@ -70,7 +70,7 @@ def step(id, cmd):
     return status
 
 def load_game(id):
-    _game = Game(scenes=[builder.create("easy") for i in range(10)], fps=10)
+    _game = Game(scenes=[builder.create("easy") for i in range(10)], fps=1000/80)
     save_game(id, _game)
     status = get_status(_game)
     status.update({

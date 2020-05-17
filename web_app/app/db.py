@@ -6,6 +6,7 @@ import dill
 
 script_directory = os.path.dirname(os.path.abspath(__file__))
 DATABASE = script_directory + "/sessions.db"
+SESSIONS_DIR = script_directory + "/sessions/"
 
 def reset_db():
     print("reset db")
@@ -17,17 +18,17 @@ def reset_db():
     conn.close()
 
 def save_game(id, _game):
+    
+    # packed = dill.dumps(_game, dill.HIGHEST_PROTOCOL)
+    file = open(SESSIONS_DIR+id+".pkl", "wb")
+    dill.dump(_game, file)
+    file.close()         
+    
+def save_game_db(id, _game):
     conn = sqlite3.connect(DATABASE)
     curr = conn.cursor()
     packed = sqlite3.Binary(dill.dumps(_game, dill.HIGHEST_PROTOCOL))
-    
-    # Delete method
-    # try: 
-    #     curr.execute("INSERT INTO sessions VALUES (?, ?, ?)", (id, sqlite3.Binary(dill.dumps(_game)), time.time()))
-    # except:
-    #     curr.execute("DELETE FROM sessions WHERE id=?", (id,))  
-    #     curr.execute("INSERT INTO sessions VALUES (?, ?, ?)", (id, sqlite3.Binary(dill.dumps(_game)), time.time()))
-        
+           
     # Replace method
     try:
         curr.execute("REPLACE INTO sessions VALUES (?, ?, ?)", (id, packed, time.time()))    
@@ -39,6 +40,16 @@ def save_game(id, _game):
     conn.close()
     
 def get_game(id):
+    
+    if not os.path.isfile(SESSIONS_DIR + id + ".pkl"):
+        raise ValueError("Bitch game isn't even loaded.")
+    
+    file = open(SESSIONS_DIR+id+".pkl","rb")
+    loaded = dill.load(file) 
+    file.close()
+    return loaded
+
+def get_game_db(id):
     conn = sqlite3.connect(DATABASE)
     curr = conn.cursor()
     

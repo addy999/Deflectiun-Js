@@ -39,7 +39,7 @@ function startGame() {
     interval = setInterval(() => {
         var cmd = readCmd();
         $.get( "/get/"+ id + "/" + cmd , update_screen);
-    }, 100);
+    }, 80);
 }
 
 function pauseGame() {
