@@ -4,6 +4,7 @@ from app import app
 from flask import render_template, session
 # from flask_socketio import emit
 from .game import *
+from .db import reset_db
 
 # Load sprites 
 images_path = os.path.abspath("app/static/images/ship2")
@@ -19,6 +20,7 @@ for i in os.listdir(images_path):
 @app.route('/index')
 def index():    
     session.pop("loaded", None)
+    reset_db()
     return render_template('index.html', planets = [1,1], images=imgs, logo="draft1.png")
 
 @app.route('/get/<id>/<cmd>')

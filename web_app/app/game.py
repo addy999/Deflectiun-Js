@@ -1,10 +1,13 @@
 import sys
+import math
 sys.path.append("../../DeflectiunCore")
 
 from spaceshots_core.game import *
+from spaceshots_core.assests import *
+from spaceshots_core.physics import * 
 from spaceshots_core.scene import LevelBuilder, closest_dist_to_sc
+from .db import *
 from copy import deepcopy
-import math
 
 def get_status(game):
     
@@ -54,8 +57,9 @@ def get_status(game):
     return data
 
 def step(id, cmd):
-    _game = games[id]
+    _game = get_game(id)
     won, fail, message = _game.step(cmd)
+    save_game(id, _game)
     status = get_status(_game)
     status.update({
         "won" : won,
@@ -66,8 +70,8 @@ def step(id, cmd):
     return status
 
 def load_game(id):
-    _game = Game(scenes=[builder.create("easy") for i in range(10)], fps=25)
-    games.update({id : _game})
+    _game = Game(scenes=[builder.create("easy") for i in range(10)], fps=10)
+    save_game(id, _game)
     status = get_status(_game)
     status.update({
         "won" : False,
@@ -78,4 +82,3 @@ def load_game(id):
     
 screen_x, screen_y = 900, 700
 builder = LevelBuilder(screen_x, screen_y)
-games = {}
