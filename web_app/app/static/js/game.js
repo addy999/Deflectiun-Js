@@ -1,6 +1,7 @@
 var interval = null;
 var d = 0;
 var id = null;
+var game_str = "";
 
 function loadGame() {
 
@@ -36,10 +37,20 @@ function loadGame() {
 }
 
 function startGame() {
+
+    // interval = setInterval(() => {
+    //     var cmd = readCmd();
+    //     $.get( "/get/"+ id + "/" + cmd + "/" + game_str, update_screen);
+    // }, 100);
+
     interval = setInterval(() => {
         var cmd = readCmd();
-        $.get( "/get/"+ id + "/" + cmd , update_screen);
-    }, 80);
+        $.post( "/post", {
+            "id" : id,
+            "game" : game_str,
+            "cmd" : cmd,
+        }, update_screen);
+    }, 60);
 }
 
 function pauseGame() {
@@ -70,6 +81,9 @@ function update_screen(game_data) {
     var cxt = canvas.getContext("2d");
 
     game_data = $.parseJSON(game_data);
+    game_str = game_data.bytes
+    // game_str = game_data.bytes.replace(/\s/g, '').replace(/\\/g, "+");
+
     cxt.clearRect(0, 0, canvas.width, canvas.height)
 
     if(!game_data){

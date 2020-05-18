@@ -56,29 +56,42 @@ def get_status(game):
     
     return data
 
-def step(id, cmd):
-    _game = get_game(id)
+def step(game_str, cmd):
+    
+    print("--------------------")
+    start = time.time()
+    _game = str_to_game(game_str)
+    # _game = get_game_stupid(id)
+    print("str to game took", time.time()-start, "s")
     won, fail, message = _game.step(cmd)
-    save_game(id, _game)
+    start = time.time()
+    bytes_str = game_to_str(_game)
+    # save_game_stupid(id, _game)
+    print("game to str took", time.time()-start, "s")
     status = get_status(_game)
     status.update({
         "won" : won,
         "fail" : fail,
-        "message" : message
+        "message" : message,
+        "bytes" : bytes_str
     })
 
     return status
 
 def load_game(id):
-    _game = Game(scenes=[builder.create("easy") for i in range(10)], fps=1000/80)
-    save_game(id, _game)
+    global original
+    _game = Game(scenes=[builder.create("easy") for i in range(10)], fps=1000/60)
+    # save_game_stupid(id, _game)
+    original = game_to_str(_game)
     status = get_status(_game)
     status.update({
         "won" : False,
         "fail" : False,
-        "message" : ""
+        "message" : "",
+        "bytes" : original
     })
     return status
     
 screen_x, screen_y = 900, 700
 builder = LevelBuilder(screen_x, screen_y)
+original = ""
