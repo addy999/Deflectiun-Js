@@ -90,9 +90,9 @@ def get_game_db(id):
     
 def game_to_str(_game):
     
-    return str(dill.dumps(_game, dill.HIGHEST_PROTOCOL))
+    return str(zlib.compress(dill.dumps(_game, dill.HIGHEST_PROTOCOL)))
 
 def str_to_game(_str):
     
-    return dill.loads(ast.literal_eval(_str))
+    return dill.loads(zlib.decompress(ast.literal_eval(_str)))
     
