@@ -8,6 +8,7 @@ from spaceshots_core.physics import *
 from spaceshots_core.scene import LevelBuilder, closest_dist_to_sc
 from .db import *
 from copy import deepcopy
+import sys
 
 def get_status(game):
     
@@ -58,16 +59,16 @@ def get_status(game):
 
 def step(game_str, cmd):
     
-    print("--------------------")
-    start = time.time()
+    # print("--------------------")
+    # start = time.time()
     _game = str_to_game(game_str)
     # _game = get_game_stupid(id)
-    print("str to game took", time.time()-start, "s")
+    # print("str to game took", time.time()-start, "s")
     won, fail, message = _game.step(cmd)
-    start = time.time()
+    # start = time.time()
     bytes_str = game_to_str(_game)
     # save_game_stupid(id, _game)
-    print("game to str took", time.time()-start, "s")
+    # print("game to str took", time.time()-start, "s")
     status = get_status(_game)
     status.update({
         "won" : won,
@@ -80,7 +81,7 @@ def step(game_str, cmd):
 
 def load_game(id):
     global original
-    _game = Game(scenes=[builder.create("easy") for i in range(10)], fps=1000/60)
+    _game = Game(scenes=[builder.create("easy") for i in range(1)], fps=1000/50)
     # save_game_stupid(id, _game)
     original = game_to_str(_game)
     status = get_status(_game)

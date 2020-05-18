@@ -3,7 +3,11 @@ import time
 import os 
 import dill
 import ast
-dill.settings['byref'] = True
+import zlib
+import sys
+
+sys.path.append("../../DeflectiunCore")
+from spaceshots_core.game import *
 
 script_directory = os.path.dirname(os.path.abspath(__file__))
 DATABASE = script_directory + "/sessions.db"

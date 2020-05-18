@@ -41,6 +41,8 @@ for i in os.listdir(images_path):
         "src" : "static/images/ship2/"+i,
         "name" : i.replace(".png", "")
     })
+    
+load_game(id)
 
 @app.route('/')
 @app.route('/index')
@@ -49,11 +51,10 @@ def index():
     reset_db()
     return render_template('index.html', planets = [1,1], images=imgs, logo="draft1.png")
 
-# @app.route('/get/<id>/<cmd>/<game_str>')
-# def get(id, cmd, game_str=str):
+# @app.route('/get/<id>/<cmd>')
+# def get(id, cmd):
 #     if "loaded" in session:
-#         cleaned_game_str = game_str.replace("+", "\\").strip()
-#         status = step(cleaned_game_str, int(cmd))
+#         status, session["game"] = step(session["game"], int(cmd))
 #         return json.dumps(status)
 #     else:
 #         return json.dumps(False)

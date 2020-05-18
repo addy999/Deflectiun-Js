@@ -1,7 +1,7 @@
 var interval = null;
 var d = 0;
 var id = null;
-var game_str = "";
+// var game_str = "";
 
 function loadGame() {
 
@@ -40,7 +40,7 @@ function startGame() {
 
     // interval = setInterval(() => {
     //     var cmd = readCmd();
-    //     $.get( "/get/"+ id + "/" + cmd + "/" + game_str, update_screen);
+    //     $.get( "/get/"+ id + "/" + cmd, update_screen);
     // }, 100);
 
     interval = setInterval(() => {
@@ -50,7 +50,7 @@ function startGame() {
             "game" : game_str,
             "cmd" : cmd,
         }, update_screen);
-    }, 60);
+    }, 50);
 }
 
 function pauseGame() {
