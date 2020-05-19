@@ -77,6 +77,7 @@ def status_to_game(status):
     # Sc
     sc = Spacecraft('', status["sc"]["mass"], status["sc"]["gas_level"], status["sc"]["thrust"]["mag"], status["sc"]["size"][0], status["sc"]["size"][1], status["sc"]["gas_p_thrust"], status["sc"]["min_dist_to_planet"])
     sc.p = Momentum(status["sc"]["p"][0],status["sc"]["p"][1])
+    sc.gas_level = status["sc"]["gas_level"]
     
     # Planets
     planets = []
