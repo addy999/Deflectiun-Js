@@ -10,7 +10,7 @@ from .db import *
 from copy import deepcopy
 import sys
 
-FPS = 1000/90
+FPS = 1000/70
 
 def get_status(game):
     

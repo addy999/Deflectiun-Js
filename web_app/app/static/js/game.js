@@ -58,7 +58,7 @@ function startGame() {
             "init_orbits" : init_orbits,
             "sc_start_pos" : sc_start_pos,
         }, update_screen);
-    }, 90);
+    }, 70);
 }
 
 function pauseGame() {
