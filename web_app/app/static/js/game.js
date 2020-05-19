@@ -1,7 +1,9 @@
 var interval = null;
 var d = 0;
 var id = null;
-// var game_str = "";
+var game_str = "";
+var init_orbits;
+var sc_start_pos;
 
 function loadGame() {
 
@@ -33,7 +35,11 @@ function loadGame() {
     setCmd(0);
 
     // Draw screen
-    $.get( "/load/"+id , update_screen);
+    $.get( "/load/"+id , (data)=>{
+        update_screen(data);
+        init_orbits = JSON.stringify($.parseJSON(data).init_orbits);
+        sc_start_pos = JSON.stringify($.parseJSON(data).sc_start_pos);
+    });
 }
 
 function startGame() {
@@ -49,8 +55,10 @@ function startGame() {
             "id" : id,
             "game" : game_str,
             "cmd" : cmd,
+            "init_orbits" : init_orbits,
+            "sc_start_pos" : sc_start_pos,
         }, update_screen);
-    }, 50);
+    }, 90);
 }
 
 function pauseGame() {
@@ -80,8 +88,9 @@ function update_screen(game_data) {
     var canvas = document.getElementById("canvas");
     var cxt = canvas.getContext("2d");
 
+    game_str = game_data;
     game_data = $.parseJSON(game_data);
-    game_str = game_data.bytes
+    
     // game_str = game_data.bytes.replace(/\s/g, '').replace(/\\/g, "+");
 
     cxt.clearRect(0, 0, canvas.width, canvas.height)
