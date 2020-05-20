@@ -23,13 +23,16 @@ def index():
     reset_db()
     return render_template('index.html', planets = [1,1], images=imgs, logo="draft1.png")
 
-# @app.route('/get/<id>/<cmd>')
-# def get(id, cmd):
-#     if "loaded" in session:
-#         status, session["game"] = step(session["game"], int(cmd))
-#         return json.dumps(status)
-#     else:
-#         return json.dumps(False)
+@app.route('/get/<id>/<cmd>/<prev_game_status>')
+def get(id, cmd, prev_game_status):
+    if "loaded" in session:
+        prev_game_status = json.loads(prev_game_status)
+        prev_game_status.update({"init_orbits": session["init_orbits"]})
+        prev_game_status.update({"sc_start_pos": session["sc_start_pos"]})
+        status = step(prev_game_status, int(cmd))
+        return json.dumps(status)
+    else:
+        return json.dumps(False)
 
 @app.route('/post', methods = ['POST'])
 def post():
@@ -37,11 +40,9 @@ def post():
         _id = request.form["id"]
         cmd = int(request.form["cmd"])
         prev_game_status = json.loads(request.form["game"])    
-        prev_game_status.update({"init_orbits": json.loads(request.form["init_orbits"])})
-        prev_game_status.update({"sc_start_pos": json.loads(request.form["sc_start_pos"])})
-        # prev_game_status = session["prev_game"] 
+        prev_game_status.update({"init_orbits": session["init_orbits"]})
+        prev_game_status.update({"sc_start_pos": session["sc_start_pos"]})
         status = step(prev_game_status, cmd)
-        # session["prev_game"]  = status
         return json.dumps(status)
     else:
         return json.dumps(False)
@@ -50,7 +51,8 @@ def post():
 def load(id):
     session["loaded"] = True
     status = load_game(id)
-    # session["prev_game"] = status    
+    session["init_orbits"] = status["init_orbits"]
+    session["sc_start_pos"] = status["sc_start_pos"] 
     return json.dumps(status)
 
 # @socketio.on('my event')

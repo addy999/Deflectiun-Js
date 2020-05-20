@@ -37,28 +37,28 @@ function loadGame() {
     // Draw screen
     $.get( "/load/"+id , (data)=>{
         update_screen(data);
-        init_orbits = JSON.stringify($.parseJSON(data).init_orbits);
-        sc_start_pos = JSON.stringify($.parseJSON(data).sc_start_pos);
+        // init_orbits = JSON.stringify($.parseJSON(data).init_orbits);
+        // sc_start_pos = JSON.stringify($.parseJSON(data).sc_start_pos);
     });
 }
 
 function startGame() {
 
-    // interval = setInterval(() => {
-    //     var cmd = readCmd();
-    //     $.get( "/get/"+ id + "/" + cmd, update_screen);
-    // }, 100);
-
     interval = setInterval(() => {
         var cmd = readCmd();
-        $.post( "/post", {
-            "id" : id,
-            "game" : game_str,
-            "cmd" : cmd,
-            "init_orbits" : init_orbits,
-            "sc_start_pos" : sc_start_pos,
-        }, update_screen);
+        $.get( "/get/"+ id + "/" + cmd + "/" + game_str, update_screen);
     }, 70);
+
+    // interval = setInterval(() => {
+    //     var cmd = readCmd();
+    //     $.post( "/post", {
+    //         "id" : id,
+    //         "game" : game_str,
+    //         "cmd" : cmd,
+    //         // "init_orbits" : init_orbits,
+    //         // "sc_start_pos" : sc_start_pos,
+    //     }, update_screen);
+    // }, 70);
 }
 
 function pauseGame() {
@@ -90,7 +90,6 @@ function update_screen(game_data) {
 
     game_str = game_data;
     game_data = $.parseJSON(game_data);
-    
     // game_str = game_data.bytes.replace(/\s/g, '').replace(/\\/g, "+");
 
     cxt.clearRect(0, 0, canvas.width, canvas.height)
