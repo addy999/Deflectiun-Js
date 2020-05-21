@@ -1,4 +1,4 @@
-var SPEED_THRESHOLD = 2; // mbps
+var SPEED_THRESHOLD = 0; // mbps
 var imageAddr = "../static/images/test.png";
 
 function sleep(milliseconds) {

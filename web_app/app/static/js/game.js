@@ -66,6 +66,7 @@ function pauseGame() {
 }
 
 function ellipse(context, cx, cy, rx, ry){
+    
     context.save(); // save state
     context.beginPath();
 
@@ -75,6 +76,7 @@ function ellipse(context, cx, cy, rx, ry){
 
     context.restore(); // restore to original state
     context.lineWidth = 5;
+    context.shadowBlur = 0;
     context.strokeStyle = "white";
     context.setLineDash([1, 15]);
     context.stroke();
@@ -90,6 +92,7 @@ function update_screen(game_data) {
 
     game_str = game_data;
     game_data = $.parseJSON(game_data);
+    console.log(game_data.level_i);
     // game_str = game_data.bytes.replace(/\s/g, '').replace(/\\/g, "+");
 
     cxt.clearRect(0, 0, canvas.width, canvas.height)
@@ -155,10 +158,13 @@ function update_screen(game_data) {
         // Win region
         var points = game_data.scene.win_region;
         cxt.beginPath();
+        cxt.lineCap = "round";
         cxt.moveTo(points[0][0], game_data.scene.size[1] - points[0][1]);
         cxt.lineTo(points[1][0], game_data.scene.size[1] - points[1][1]);
         cxt.lineWidth = 25;
         cxt.strokeStyle = "#37ff08";
+        cxt.shadowBlur = 30;
+        cxt.shadowColor = "green";
         cxt.setLineDash([0,0]);
         cxt.stroke();
 
@@ -171,15 +177,21 @@ function update_screen(game_data) {
 
         // Glow
         var max_dist = (game_data.scene.size[0]**2+game_data.scene.size[1]**2)**0.5;
-        var pixel_dist = Math.pow(2.71828,4*(max_dist-game_data.sc.closest_dist_to_planet)/max_dist)-30;
-        document.getElementsByClassName("view")[0].style.boxShadow = "0px 0px 57px " +  pixel_dist.toString() + "px rgba(255,166,0,1)";
+        // var pixel_dist = Math.pow(2.71828,4*(max_dist-game_data.sc.closest_dist_to_planet)/max_dist)-30;
+        // document.getElementsByClassName("view")[0].style.boxShadow = "0px 0px 57px " +  pixel_dist.toString() + "px rgba(255,166,0,1)";
+
+        var pixel_dist = Math.pow(2.71828,5*(max_dist-game_data.sc.closest_dist_to_planet)/max_dist);
+        if(pixel_dist < 0) {pixel_dist = 0;}
+        document.getElementsByClassName("hud")[0].style.boxShadow = "inset 0px 0px " +  pixel_dist.toString() + "px 0px #bd4c21";
 
         // Win
         // if(game_data.won) {
         //     overlayOn("rgba(0,255,0,0.8)", "Congrats!");
+        //     pauseGame();
         // }
         // if(game_data.fail) {
         //     overlayOn("rgba(255,0,0,0.8)", ":(");
+        //     pauseGame();
         // }
     }
 }
