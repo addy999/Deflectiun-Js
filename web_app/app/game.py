@@ -6,6 +6,7 @@ from spaceshots_core.game import *
 from spaceshots_core.assests import *
 from spaceshots_core.physics import * 
 from spaceshots_core.scene import LevelBuilder, closest_dist_to_sc
+from flask import session
 from .db import *
 from copy import deepcopy
 import sys
@@ -96,49 +97,65 @@ def status_to_game(status):
     scene = Scene(status["scene"]["size"], sc, planets, status["sc"]["pos"], status["scene"]["win_region"], status["scene"]["win_vel"], status["scene"]["completion_score"], status["scene"]["attempt_reduction"], status["scene"]["gas_bonus"], reset=False)    
     scene.attempts = status["scene"]["attempts"]
     scene.won, scene.fail = status["won"], status["fail"]
-    scene.initial_orbit_pos = status["init_orbits"]
-    scene.sc_start_pos = status["sc_start_pos"]
+    
+    # Init info
+    scene.initial_orbit_pos = session["scene_init_info"]["init_orbits"]
+    scene.sc_start_pos = session["scene_init_info"]["sc_start_pos"]
     
     return Game(FPS, [scene], reset=False)
 
-def step(prev_status, cmd):
-    
-    # print("--------------------")
+def step(id, prev_status, cmd):
+
     start = time.time()
-    # _game = str_to_game(game_str)
-    # _game = get_game_stupid(id)
     _game = status_to_game(prev_status)
-    # print("str to game took", time.time()-start, "s")
     won, fail, message = _game.step(cmd)
-    # start = time.time()
-    # bytes_str = game_to_str(_game)
-    # save_game_stupid(id, _game)
-    # print("game to str took", time.time()-start, "s")
+    
+    if won:
+        session["game_info"]["level_i"] += 1
+        session["game_info"]["score"] += _game.calc_score()[0]
+        
+        _game = Game(scenes=[get_scene(id, prev_status["level_i"])], fps=FPS)
+        session["scene_init_info"] = {
+        "init_orbits" : _game.scenes[0].initial_orbit_pos,
+        "sc_start_pos" : _game.scenes[0].sc_start_pos
+        }
+        print("Score", session["game_info"]["score"])
+        
+
     status = get_status(_game)
     status.update({
         "won" : won,
         "fail" : fail,
         "message" : message,
-        # "bytes" : bytes_str
+        "level_i" :  session["game_info"]["level_i"]
     })
 
     return status
 
 def load_game(id):
-    # global original
-    _game = Game(scenes=[builder.create("easy") for i in range(1)], fps=FPS)
-    # print(_game.scenes[0].planets[0].orbit.angular_step)
-    # save_game_stupid(id, _game)
-    # original = game_to_str(_game)
+
+    scenes=[builder.create(level) for level in ["easy", "easy", "medium", "medium"]]
+    _game = Game(scenes=scenes[:1], fps=FPS)
+    
     status = get_status(_game)
     status.update({
         "won" : False,
         "fail" : False,
         "message" : "",
-        "init_orbits" : _game.scenes[0].initial_orbit_pos,
-        "sc_start_pos" : _game.scenes[0].sc_start_pos,
-        # "bytes" : original
+        "level_i" :  0
     })
+    
+    # Save session
+    save_game_db(id, scenes)
+    session["scene_init_info"] = {
+        "init_orbits" : _game.scenes[0].initial_orbit_pos,
+        "sc_start_pos" : _game.scenes[0].sc_start_pos
+    }
+    session["game_info"] = {
+        "level_i" : 0,
+        "score" : 0
+    }
+
     return status
     
 screen_x, screen_y = 900, 700

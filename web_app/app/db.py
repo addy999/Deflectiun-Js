@@ -16,12 +16,11 @@ GAMES = {}
 
 def reset_db():
     
-    print("reset db")
     os.remove(DATABASE)
     conn = sqlite3.connect(DATABASE)
     curr = conn.cursor()
-    curr.execute("CREATE TABLE sessions (id varchar(5) PRIMARY KEY, game data, time float)")
-    curr.execute("PRAGMA cache_size=10000")
+    curr.execute("CREATE TABLE sessions (id varchar(5) PRIMARY KEY, scenes data, time float)")
+    # curr.execute("PRAGMA cache_size=10000")
     conn.commit()
     conn.close()
 
@@ -35,13 +34,12 @@ def save_game_pickle(id, _game):
     dill.dump(_game, file, protocol=dill.HIGHEST_PROTOCOL)
     file.close()         
     
-def save_game_db(id, _game):
+def save_game_db(id, scenes):
     
     conn = sqlite3.connect(DATABASE)
     curr = conn.cursor()
     start = time.time()
-    packed = dill.dumps(_game, dill.HIGHEST_PROTOCOL)
-    # packed = game_to_str(_game)
+    packed = dill.dumps(scenes, dill.HIGHEST_PROTOCOL)
     print("> Bytes took", time.time()-start, "s")
     start = time.time()
            
@@ -52,13 +50,10 @@ def save_game_db(id, _game):
         curr.execute("INSERT INTO sessions VALUES (?, ?, ?)", (id, packed, time.time()))      
     
     print("> Write took", time.time()-start, "s")
-    # start = time.time()
         
     conn.commit()
     curr.close()
     conn.close()
-    
-    # print("> Close took", time.time()-start, "s")
     
 def get_game_stupid(id):
     return GAMES[id]
@@ -72,6 +67,20 @@ def get_game_pickle(id):
     loaded = dill.load(file) 
     file.close()
     return loaded
+
+def get_scene(id, level_i):
+
+    conn = sqlite3.connect(DATABASE)
+    curr = conn.cursor()
+    
+    # Load
+    curr.execute("SELECT * FROM sessions WHERE id=?", (id,))
+    scene = dill.loads(curr.fetchone()[1])[level_i]
+    
+    curr.close()
+    conn.close()
+    
+    return scene
 
 def get_game_db(id):
      
