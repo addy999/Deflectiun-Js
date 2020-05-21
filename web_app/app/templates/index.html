@@ -1,4 +1,6 @@
-<html>
+<!-- <!doctype html> -->
+<html lang="en">
+<!-- <html> -->
     <head>
         <title>Spaceshots</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -23,24 +25,23 @@
             <img id="logo-img" src="{{ url_for('static', filename='images/' + logo) }}">
         </div>
         <div class="view">
-            <div id="overlay">
-                <h1 class="text-center" id="overlay-text"></h1>
-            </div>
+            
             <div class="text-center asset-container" id="sc">
                 {% for i in images %}
                     <img src={{ i["src"] }} id={{ i["name"] }} class="asset thrusts">
                 {% endfor %}
             </div>
             {% for p in planets %}
-                <div class="text-center planet asset-container" id={{ "p" + (planets.index(p)+1).__str__() }}>
-                </div>
+                <div class="text-center planet asset-container" id={{ "p" + (planets.index(p)+1).__str__() }}></div>
             {% endfor %}
 
             <canvas class="canvas" id="canvas">.</canvas>
 
             <div class="hud">
                 <div class="monitor">
-                    <p><u>Speed (m/s):</u></p>
+                    <p><u>Level</u></p>
+                    <p id="level">placeholder</p>
+                    <p><u>Speed (m/s)</u></p>
                     <p id="speed">0</p>
                     <p><u>Gas</u></p>
                     <p id="gas_level">0</p>
@@ -58,6 +59,16 @@
             <div class="stars"></div>
             <div class="twinkling"></div>
             <!-- <div class="clouds"></div> -->
+            <div id="overlay">
+                <h1 class="text-center" id="overlay-text"></h1>
+                <div id="sub">
+                    
+                    <!-- <p class="text-center">----------</p> -->
+                    <p></p>         
+                    <p></p>
+                    <p class="text-center"></p>
+                </div>
+            </div>
         </div>
         
         <div id="buttons" class="text-center">

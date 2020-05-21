@@ -1,7 +1,7 @@
 var interval = null;
 var d = 0;
-var id = null;
-var game_str = "";
+var id = "abcde";
+var game_str = "blah";
 var init_orbits;
 var sc_start_pos;
 
@@ -16,7 +16,6 @@ function loadGame() {
     document.body.onkeyup = captureReleaseThrustCommand;
     navigator.connection.onchange = speedWatch;
     speedWatch(navigator.connection); // initial check
-    // MeasureConnectionSpeed(); // initial check
 
     // Adjust view 
     canvas.width = canvas.offsetWidth;
@@ -37,8 +36,6 @@ function loadGame() {
     // Draw screen
     $.get( "/load/"+id , (data)=>{
         update_screen(data);
-        // init_orbits = JSON.stringify($.parseJSON(data).init_orbits);
-        // sc_start_pos = JSON.stringify($.parseJSON(data).sc_start_pos);
     });
 }
 
@@ -82,6 +79,35 @@ function ellipse(context, cx, cy, rx, ry){
     context.stroke();
 };
 
+function levelWon(score) {
+    
+    pauseGame();
+    overlayOn( "rgba(0,255,0,0.8)", "Nice win!");
+
+    // Display scores
+    var sub = document.getElementById("sub");
+    sub.style.display = "block";
+    sub.children[2].textContent = "Score = " + String(score[0]);
+    sub.children[2].style.color = "black";
+    sub.children[0].textContent = "- attempt deduction = " + String(score[2]);
+    sub.children[0].style.color = "red";
+    sub.children[0].style.transform = "translate(230px, 0px)";
+    sub.children[1].textContent = "+ gas bonus = " + String(score[1]);
+    sub.children[1].style.color = "blue";
+    sub.children[1].style.transform = "translate(315px, 0px)";
+
+    //  Clear message readout
+    document.getElementById("msg").textContent="";
+
+    // Move forward to next scene
+    setTimeout(()=> {
+        overlayOff();
+        sub.style.display = "none";
+        startGame();
+    }, 5000);   
+
+}
+
 function update_screen(game_data) {
 
     var sc_el = document.getElementById("sc");
@@ -92,7 +118,7 @@ function update_screen(game_data) {
 
     game_str = game_data;
     game_data = $.parseJSON(game_data);
-    console.log(game_data.level_i);
+    // console.log(game_data.level_i);
     // game_str = game_data.bytes.replace(/\s/g, '').replace(/\\/g, "+");
 
     cxt.clearRect(0, 0, canvas.width, canvas.height)
@@ -155,6 +181,14 @@ function update_screen(game_data) {
 
         }
 
+        var diff = planets.length - game_data.n_planets;
+        if(diff > 0){
+            for (let i=game_data.n_planets;i<planets.length;i++){
+                planets[i].style.display = "none";
+            }
+        }
+
+
         // Win region
         var points = game_data.scene.win_region;
         cxt.beginPath();
@@ -169,6 +203,7 @@ function update_screen(game_data) {
         cxt.stroke();
 
         // Hud
+        document.getElementById("level").textContent = String(game_data.level_i+1) + "/" + String(game_data.n_levels);
         document.getElementById("speed").textContent = game_data.sc.speed;
         document.getElementById("gas_level").textContent = game_data.sc.gas_level;
         document.getElementById("speed-req").textContent = game_data.scene.win_vel;
@@ -185,10 +220,9 @@ function update_screen(game_data) {
         document.getElementsByClassName("hud")[0].style.boxShadow = "inset 0px 0px " +  pixel_dist.toString() + "px 0px #bd4c21";
 
         // Win
-        // if(game_data.won) {
-        //     overlayOn("rgba(0,255,0,0.8)", "Congrats!");
-        //     pauseGame();
-        // }
+        if(game_data.won) {
+            levelWon(game_data.scores);
+        }
         // if(game_data.fail) {
         //     overlayOn("rgba(255,0,0,0.8)", ":(");
         //     pauseGame();

@@ -40,7 +40,7 @@ def save_game_db(id, scenes):
     curr = conn.cursor()
     start = time.time()
     packed = dill.dumps(scenes, dill.HIGHEST_PROTOCOL)
-    print("> Bytes took", time.time()-start, "s")
+    # print("> Bytes took", time.time()-start, "s")
     start = time.time()
            
     # Replace method
@@ -49,7 +49,7 @@ def save_game_db(id, scenes):
     except:
         curr.execute("INSERT INTO sessions VALUES (?, ?, ?)", (id, packed, time.time()))      
     
-    print("> Write took", time.time()-start, "s")
+    # print("> Write took", time.time()-start, "s")
         
     conn.commit()
     curr.close()

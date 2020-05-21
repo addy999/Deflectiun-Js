@@ -1,4 +1,4 @@
-var SPEED_THRESHOLD = 0; // mbps
+var SPEED_THRESHOLD = 1; // mbps
 var imageAddr = "../static/images/test.png";
 
 function sleep(milliseconds) {
@@ -12,19 +12,21 @@ function sleep(milliseconds) {
 
 function overlayOff() {
   var el = document.getElementById("overlay");
-  el.style.opacity = 0;
+  // el.style.opacity = 0;
   // el.style.backgroundColor = "none";
   // sleep(500);
-  el.style.display = "none"
+  // el.style.display = "none";
+  el.style.opacity = 0;
 }
 
 function overlayOn(color, text) {
   var el = document.getElementById("overlay");
-  el.style.display = "block"
+  // el.style.display = "block"
   el.style.opacity = 100;
-  // sleep(500);
   el.style.backgroundColor = color;
   el.children[0].textContent = text;
+
+  // document.getElementById("sub").style.display = "none";
 }
   
 function okSpeed() {

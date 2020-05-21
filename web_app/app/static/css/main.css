@@ -1,5 +1,6 @@
 body {
-    background-color: #000;
+    /* background-color: #000; */
+    background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
 }
 #logo {
     padding: 2vh;
@@ -33,7 +34,8 @@ body {
 }
 
 #overlay {
-    position: relative; 
+    position: absolute; 
+    top: 0;
     display: block; 
     width: inherit; 
     height: inherit; 
@@ -44,7 +46,13 @@ body {
 #overlay-text {
     font-size: 50px;
     color: white;
-    transform: translate(0%,500%);
+    transform: translate(0%,400%);
+}
+#sub {
+    font-size: 25px;
+    color: white;
+    transform: translate(0%,200%);
+    display: none;
 }
 
 .view {
@@ -56,6 +64,8 @@ body {
     z-index: 5;
     background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
     position: relative;
+    /* resize:both;
+    overflow: auto; */
 }
 
 canvas {
@@ -139,7 +149,7 @@ canvas {
 } */
 
 .footer {
-    padding-top: 5vh;
+    padding: 5vh;
     color: white;
 }
 .bi{

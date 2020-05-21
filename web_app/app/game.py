@@ -109,32 +109,35 @@ def step(id, prev_status, cmd):
     start = time.time()
     _game = status_to_game(prev_status)
     won, fail, message = _game.step(cmd)
+    level_score = [0,0,0]
     
     if won:
+        level_score = _game.calc_score()
         session["game_info"]["level_i"] += 1
-        session["game_info"]["score"] += _game.calc_score()[0]
+        session["game_info"]["total_score"] += level_score[0]
         
-        _game = Game(scenes=[get_scene(id, prev_status["level_i"])], fps=FPS)
+        # Get new level
+        _game = Game(scenes=[get_scene(id, session["game_info"]["level_i"])], fps=FPS)
         session["scene_init_info"] = {
         "init_orbits" : _game.scenes[0].initial_orbit_pos,
         "sc_start_pos" : _game.scenes[0].sc_start_pos
         }
-        print("Score", session["game_info"]["score"])
         
-
     status = get_status(_game)
     status.update({
         "won" : won,
         "fail" : fail,
         "message" : message,
-        "level_i" :  session["game_info"]["level_i"]
+        "level_i" :  session["game_info"]["level_i"],
+        "n_levels" : session["game_info"]["n_levels"],
+        "scores" : level_score
     })
 
     return status
 
 def load_game(id):
 
-    scenes=[builder.create(level) for level in ["easy", "easy", "medium", "medium"]]
+    scenes=[builder.create(level) for level in ["easy", "medium"]]
     _game = Game(scenes=scenes[:1], fps=FPS)
     
     status = get_status(_game)
@@ -142,7 +145,9 @@ def load_game(id):
         "won" : False,
         "fail" : False,
         "message" : "",
-        "level_i" :  0
+        "level_i" :  0,
+        "n_levels" : len(scenes),
+        "scores" : [0,0,0],
     })
     
     # Save session
@@ -153,7 +158,8 @@ def load_game(id):
     }
     session["game_info"] = {
         "level_i" : 0,
-        "score" : 0
+        "n_levels" : len(scenes),
+        "total_score" : 0
     }
 
     return status
