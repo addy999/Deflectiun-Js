@@ -31,10 +31,10 @@ def get(id, cmd, prev_game_status):
     else:
         return json.dumps(False)
 
-@app.route('/load/<id>')
-def load(id):
+@app.route('/load/<id>/<screen_x>/<screen_y>')
+def load(id, screen_x, screen_y):
     session["loaded"] = True
-    status = load_game(id)
+    status = load_game(id, int(screen_x), int(screen_y))
     return json.dumps(status)
 
 # @app.route('/post', methods = ['POST'])

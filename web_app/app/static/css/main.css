@@ -56,10 +56,10 @@ body {
 }
 
 .view {
-    width: 900px;
-    height: 700px;
+    /* width: 900px;
+    height: 700px; */
     margin: auto;
-    display: block;
+    display: none;
     border-style: double;
     z-index: 5;
     background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);

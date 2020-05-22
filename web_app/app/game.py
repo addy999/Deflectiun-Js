@@ -135,10 +135,11 @@ def step(id, prev_status, cmd):
 
     return status
 
-def load_game(id):
+def load_game(id, screen_x, screen_y):
 
+    builder = LevelBuilder(screen_x, screen_y)
     scenes=[builder.create(level) for level in ["easy", "medium"]]
-    _game = Game(scenes=scenes[:1], fps=FPS)
+    _game = Game(scenes=scenes[:1], fps=FPS) # load just first level for now 
     
     status = get_status(_game)
     status.update({
@@ -163,7 +164,3 @@ def load_game(id):
     }
 
     return status
-    
-screen_x, screen_y = 900, 700
-builder = LevelBuilder(screen_x, screen_y)
-original = ""

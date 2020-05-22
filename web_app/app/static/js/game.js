@@ -2,8 +2,7 @@ var interval = null;
 var d = 0;
 var id = "abcde";
 var game_str = "blah";
-var init_orbits;
-var sc_start_pos;
+var PADDING = 50;
 
 function loadGame() {
 
@@ -20,11 +19,22 @@ function loadGame() {
     // Adjust view 
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
-    
+
+    // Load screen
+    var view = document.getElementsByClassName("view")[0];
+    var logo = document.getElementById("logo");
+    var body = document.body;
+    var screen_y = body.clientHeight - logo.clientHeight - PADDING;
+    var screen_x = body.clientWidth - PADDING;
+
+    view.style.display = "block";
+    view.style.height = screen_y;
+    view.style.width = screen_x;
+
+    // Load elements    
     let el = document.getElementById("sc")   
     el.style.left='0px';
-    el.style.top='0px';    
-    
+    el.style.top='0px';        
     var to_display = Array("stars", "twinkling", "hud");
     to_display.forEach((a) => {
         document.getElementsByClassName(a)[0].style.display = "block";
@@ -34,9 +44,7 @@ function loadGame() {
     setCmd(0);
 
     // Draw screen
-    $.get( "/load/"+id , (data)=>{
-        update_screen(data);
-    });
+    $.get( "/load/"+id+"/"+screen_x+"/"+screen_y , update_screen)
 }
 
 function startGame() {
