@@ -11,6 +11,9 @@ $(document).ready(function () {
         }
     }, false);
 
+    document.getElementById("buttons").children[1].style.display="none";
+    document.getElementById("buttons").children[2].style.display="none";
+
 });
 
 // var interval = setInterval(update, 40);

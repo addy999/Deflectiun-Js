@@ -16,9 +16,6 @@ function loadGame() {
     navigator.connection.onchange = speedWatch;
     speedWatch(navigator.connection); // initial check
 
-    // Adjust view 
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
 
     // Load screen
     var view = document.getElementsByClassName("view")[0];
@@ -30,6 +27,10 @@ function loadGame() {
     view.style.display = "block";
     view.style.height = screen_y;
     view.style.width = screen_x;
+
+    // Adjust view 
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
 
     // Load elements    
     let el = document.getElementById("sc")   
@@ -45,6 +46,9 @@ function loadGame() {
 
     // Draw screen
     $.get( "/load/"+id+"/"+screen_x+"/"+screen_y , update_screen)
+    document.getElementById("buttons").children[0].textContent = "Reset Game";
+    document.getElementById("buttons").children[1].style.display="unset";
+    document.getElementById("buttons").children[2].style.display="unset";
 }
 
 function startGame() {
@@ -91,25 +95,29 @@ function levelWon(score) {
     
     pauseGame();
     overlayOn( "rgba(0,255,0,0.8)", "Nice win!");
+    $("#overlay-text").addClass("animate__tada");
 
     // Display scores
     var sub = document.getElementById("sub");
     sub.style.display = "block";
-    sub.children[2].textContent = "Score = " + String(score[0]);
-    sub.children[2].style.color = "black";
-    sub.children[0].textContent = "- attempt deduction = " + String(score[2]);
-    sub.children[0].style.color = "red";
-    sub.children[0].style.transform = "translate(230px, 0px)";
-    sub.children[1].textContent = "+ gas bonus = " + String(score[1]);
-    sub.children[1].style.color = "blue";
-    sub.children[1].style.transform = "translate(315px, 0px)";
-
-    //  Clear message readout
-    document.getElementById("msg").textContent="";
+    sub.children[0].textContent = "Score = " + String(score[0]);
+    $("#sub").addClass("animate__flash");
+    // sub.children[0].style.color = "black";
+    // sub.children[0].textContent = "- attempt deduction = " + String(score[2]);
+    // sub.children[0].style.color = "red";
+    // sub.children[0].style.transform = "translate(230px, 0px)";
+    // sub.children[1].textContent = "+ gas bonus = " + String(score[1]);
+    // sub.children[1].style.color = "blue";
+    // sub.children[1].style.transform = "translate(315px, 0px)";
 
     // Move forward to next scene
     setTimeout(()=> {
         overlayOff();
+        $("#overlay-text").removeClass("animate__tada");
+        $("#sub").removeClass("animate__flash");
+
+        document.getElementById("msg").textContent="";
+        sub.children[0].textContent = "";
         sub.style.display = "none";
         startGame();
     }, 5000);   

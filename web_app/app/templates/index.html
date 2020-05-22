@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
         <link rel="stylesheet" href="{{ url_for('static', filename='css/hud.css') }}" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
         
         <!-- JS -->
         <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>  
@@ -60,12 +61,8 @@
             <div class="twinkling"></div>
             <!-- <div class="clouds"></div> -->
             <div id="overlay">
-                <h1 class="text-center" id="overlay-text"></h1>
-                <div id="sub">
-                    
-                    <!-- <p class="text-center">----------</p> -->
-                    <p></p>         
-                    <p></p>
+                <h1 class="text-center animate__animated" id="overlay-text"></h1>
+                <div id="sub" class="animate__animated animate__repeat-2">
                     <p class="text-center"></p>
                 </div>
             </div>
