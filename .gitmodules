@@ -1,0 +1,3 @@
+[submodule "SpaceshotsCore"]
+	path = SpaceshotsCore
+	url = https:/github.com/addy999/Deflectiun-Core
