@@ -8,6 +8,9 @@ var game_on = false;
 
 function loadGame() {
 
+    overlayOn("rgba(0,0,0,0.5)", "Loading...");
+    sleep(200);
+
     var canvas = document.getElementById("canvas");
     var context = canvas.getContext("2d");
     id = makeid(5); // session id
@@ -48,10 +51,11 @@ function loadGame() {
 
     // Draw screen    
     pauseGame();
-    $.get( "/load/"+id+"/"+screen_x+"/"+screen_y , update_screen)
-    setTimeout( () => {               
-        startGame();
-    }, 200)
+    sleep(200);
+    $.get( "/load/"+id+"/"+screen_x+"/"+screen_y , update_screen);
+    sleep(200);
+    overlayOff();
+    startGame();
     
 }
 
