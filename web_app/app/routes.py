@@ -20,7 +20,7 @@ for i in os.listdir(images_path):
 @app.route('/index')
 def index():    
     session.pop("loaded", None)
-    reset_db()
+    # reset_db()
     return render_template('index.html', planets = [1,2,3], images=imgs, logo="draft1.png")
 
 @app.route('/get/<cmd>')
