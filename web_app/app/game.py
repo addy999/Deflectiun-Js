@@ -110,6 +110,7 @@ def step(id, prev_status, cmd):
     _game = status_to_game(prev_status)
     won, fail, message = _game.step(cmd)
     level_score = [0,0,0]
+    done = False
     
     if won:
         level_score = _game.calc_score()
@@ -117,11 +118,15 @@ def step(id, prev_status, cmd):
         session["game_info"]["total_score"] += level_score[0]
         
         # Get new level
-        _game = Game(scenes=[get_scene(id, session["game_info"]["level_i"])], fps=FPS)
-        session["scene_init_info"] = {
-        "init_orbits" : _game.scenes[0].initial_orbit_pos,
-        "sc_start_pos" : _game.scenes[0].sc_start_pos
-        }
+        scene = get_scene(id, session["game_info"]["level_i"])
+        if not scene: 
+            done=True
+        else:
+            _game = Game(scenes=[scene], fps=FPS)
+            session["scene_init_info"] = {
+            "init_orbits" : _game.scenes[0].initial_orbit_pos,
+            "sc_start_pos" : _game.scenes[0].sc_start_pos
+            }
         
     status = get_status(_game)
     status.update({
@@ -130,7 +135,9 @@ def step(id, prev_status, cmd):
         "message" : message,
         "level_i" :  session["game_info"]["level_i"],
         "n_levels" : session["game_info"]["n_levels"],
-        "scores" : level_score
+        "scores" : level_score,
+        "total_score" : session["game_info"]["total_score"],
+        "done" : done
     })
 
     return status
@@ -149,6 +156,7 @@ def load_game(id, screen_x, screen_y):
         "level_i" :  0,
         "n_levels" : len(scenes),
         "scores" : [0,0,0],
+        "total_score" : 0,
     })
     
     # Save session

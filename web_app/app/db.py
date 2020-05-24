@@ -75,12 +75,18 @@ def get_scene(id, level_i):
     
     # Load
     curr.execute("SELECT * FROM sessions WHERE id=?", (id,))
-    scene = dill.loads(curr.fetchone()[1])[level_i]
     
-    curr.close()
-    conn.close()
+    try:
+        scene = dill.loads(curr.fetchone()[1])[level_i]
+        
+        curr.close()
+        conn.close()
+        
+        return scene
     
-    return scene
+    except:
+        # No scene found
+        return None
 
 def get_game_db(id):
      

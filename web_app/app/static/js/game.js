@@ -94,8 +94,8 @@ function ellipse(context, cx, cy, rx, ry){
 function levelWon(score) {
     
     pauseGame();
-    overlayOn( "rgba(0,255,0,0.8)", "Nice win!");
-    $("#overlay-text").addClass("animate__tada");
+    overlayOn( "#0ca1b5cc", "Nice");
+    $("#overlay-text").addClass("animate__bounce");
 
     // Display scores
     var sub = document.getElementById("sub");
@@ -121,6 +121,32 @@ function levelWon(score) {
         sub.style.display = "none";
         startGame();
     }, 5000);   
+
+}
+
+function gameWon(final_score) {
+    
+    pauseGame();
+    overlayOn( "rgba(0,255,0,0.8)", "You won!");
+    $("#overlay-text").addClass("animate__tada");
+
+    // // Display scores
+    // var sub = document.getElementById("sub");
+    // sub.style.display = "block";
+    // sub.children[0].textContent = "Score = " + String(score[0]);
+    // $("#sub").addClass("animate__flash");
+
+    // // Move forward to next scene
+    // setTimeout(()=> {
+    //     overlayOff();
+    //     $("#overlay-text").removeClass("animate__tada");
+    //     $("#sub").removeClass("animate__flash");
+
+    //     document.getElementById("msg").textContent="";
+    //     sub.children[0].textContent = "";
+    //     sub.style.display = "none";
+    //     startGame();
+    // }, 5000);   
 
 }
 
@@ -236,7 +262,10 @@ function update_screen(game_data) {
         document.getElementsByClassName("hud")[0].style.boxShadow = "inset 0px 0px " +  pixel_dist.toString() + "px 0px #bd4c21";
 
         // Win
-        if(game_data.won) {
+        if (game_data.done) {
+            gameWon();
+        }
+        else if(game_data.won) {
             levelWon(game_data.scores);
         }
         // if(game_data.fail) {
