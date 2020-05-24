@@ -59,7 +59,7 @@ function startGame() {
 
     interval = setInterval(() => {
         var cmd = readCmd();
-        $.get( "/get/" + cmd, update_screen);
+        $.get( "/get/" + cmd + "/" + game_str, update_screen);
     }, FPS);
     game_on = true;
 }
