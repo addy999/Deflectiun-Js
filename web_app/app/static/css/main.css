@@ -46,13 +46,13 @@ body {
 #overlay-text {
     font-size: 50px;
     color: white;
-    padding-top: 25%;
+    padding-top: 20vh;
     /* transform: translate(0%,400%); */
 }
 #sub {
     font-size: 25px;
     color: white;
-    padding-top: 10%;
+    padding-top: 15vh;
     /* transform: translate(0%,750%); */
     display: none;
 }
