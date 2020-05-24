@@ -1,6 +1,6 @@
 import sys
 import math
-sys.path.append("../../DeflectiunCore")
+sys.path.append("../SpaceshotsCore")
 
 from spaceshots_core.game import *
 from spaceshots_core.assests import *

@@ -3,3 +3,5 @@
 *.pem
 *.pkl
 web_app/app/__pycache__/*.pyc
+SpaceshotsCore
+.vscode/settings.json
