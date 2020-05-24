@@ -3,6 +3,8 @@ var d = 0;
 var id = "abcde";
 var game_str = "blah";
 var PADDING = 50;
+var FPS = 70;
+var game_on = false;
 
 function loadGame() {
 
@@ -15,7 +17,6 @@ function loadGame() {
     document.body.onkeyup = captureReleaseThrustCommand;
     navigator.connection.onchange = speedWatch;
     speedWatch(navigator.connection); // initial check
-
 
     // Load screen
     var view = document.getElementsByClassName("view")[0];
@@ -41,37 +42,36 @@ function loadGame() {
         document.getElementsByClassName(a)[0].style.display = "block";
     })
     document.getElementById("sc").style.display = "block";
+    document.getElementById("buttons").children[0].textContent = "Reset Game";
 
     setCmd(0);
 
-    // Draw screen
+    // Draw screen    
+    pauseGame();
     $.get( "/load/"+id+"/"+screen_x+"/"+screen_y , update_screen)
-    document.getElementById("buttons").children[0].textContent = "Reset Game";
-    document.getElementById("buttons").children[1].style.display="unset";
-    document.getElementById("buttons").children[2].style.display="unset";
+    setTimeout( () => {               
+        startGame();
+    }, 200)
+    
 }
 
 function startGame() {
 
     interval = setInterval(() => {
         var cmd = readCmd();
-        $.get( "/get/"+ id + "/" + cmd + "/" + game_str, update_screen);
-    }, 70);
-
-    // interval = setInterval(() => {
-    //     var cmd = readCmd();
-    //     $.post( "/post", {
-    //         "id" : id,
-    //         "game" : game_str,
-    //         "cmd" : cmd,
-    //         // "init_orbits" : init_orbits,
-    //         // "sc_start_pos" : sc_start_pos,
-    //     }, update_screen);
-    // }, 70);
+        $.get( "/get/" + cmd, update_screen);
+    }, FPS);
+    game_on = true;
 }
 
 function pauseGame() {
     clearInterval(interval);
+    game_on = false;
+}
+
+function toggleGame() {
+    if(!game_on) {startGame();}
+    else {pauseGame();}
 }
 
 function ellipse(context, cx, cy, rx, ry){
