@@ -23,10 +23,12 @@ def index():
     reset_db()
     return render_template('index.html', planets = [1,2,3], images=imgs, logo="draft1.png")
 
-@app.route('/get/<id>/<cmd>/<prev_game_status>')
-def get(id, cmd, prev_game_status):
+@app.route('/get/<cmd>')
+def get(cmd):
     if "loaded" in session:
-        status = step(str(id), json.loads(prev_game_status), int(cmd))
+        # status = step(str(session["id"]), json.loads(prev_game_status), int(cmd))
+        status = step(str(session["id"]), session["prev_game_status"], int(cmd))
+        session["prev_game_status"] = status
         return json.dumps(status)
     else:
         return json.dumps(False)
@@ -34,7 +36,9 @@ def get(id, cmd, prev_game_status):
 @app.route('/load/<id>/<screen_x>/<screen_y>')
 def load(id, screen_x, screen_y):
     session["loaded"] = True
+    session["id"] = id
     status = load_game(id, int(screen_x), int(screen_y))
+    session["prev_game_status"] = status
     return json.dumps(status)
 
 # @app.route('/post', methods = ['POST'])
