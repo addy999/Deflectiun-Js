@@ -5,6 +5,9 @@ var game_str = "blah";
 var PADDING = 50;
 var FPS = 70;
 var game_on = false;
+var MIN_MS = FPS*1.5;
+var LARGER_MIN_MS = FPS*2;
+var over_ms_limit = 0;
 
 function loadGame() {
 
@@ -18,8 +21,10 @@ function loadGame() {
     // Add listeners 
     document.body.onkeydown = captureThrustCommand;
     document.body.onkeyup = captureReleaseThrustCommand;
-    navigator.connection.onchange = speedWatch;
-    speedWatch(navigator.connection); // initial check
+
+    // Speed checks
+    // navigator.connection.onchange = speedWatch;
+    // speedWatch(navigator.connection); // initial check
 
     // Load screen
     var view = document.getElementsByClassName("view")[0];
@@ -63,7 +68,35 @@ function startGame() {
 
     interval = setInterval(() => {
         var cmd = readCmd();
-        $.get( "/get/" + cmd + "/" + game_str, update_screen);
+        var start = new Date().getTime();
+        $.get( "/get/" + cmd + "/" + game_str, (data)=> {
+            var dur = new Date().getTime() - start;
+            if (dur >= MIN_MS){
+                overlayOn("rgba(0,0,0,0.1)","Waiting for faster connection...");
+                // over_ms_limit += 1;
+            }
+            // if (dur >= LARGER_MIN_MS) 
+            // {
+            //     console.log("Resetting");
+            //     pauseGame();
+            //     sleep(200);
+            //     startGame();
+            // }
+            // if (over_ms_limit > 5) {
+
+            //     console.log("Resetting");
+            //     over_ms_limit = 0;
+            //     pauseGame();
+            //     // sleep(200);
+            //     startGame();
+            // }
+            else {
+                overlayOff();
+                // over_ms_limit = 0;
+                update_screen(data);
+            }
+        });        
+        
     }, FPS);
     game_on = true;
 }
