@@ -77,6 +77,7 @@ def status_to_game(status):
     
     # Sc
     sc = Spacecraft('', status["sc"]["mass"], status["sc"]["gas_level"], status["sc"]["thrust"]["mag"], status["sc"]["size"][0], status["sc"]["size"][1], status["sc"]["gas_p_thrust"], status["sc"]["min_dist_to_planet"])
+    sc.x, sc.y = status["sc"]["pos"]
     sc.p = Momentum(status["sc"]["p"][0],status["sc"]["p"][1])
     sc.gas_level = status["sc"]["gas_level"] # take care of the rounding in init
     sc._initial_gas_level = status["sc"]["i_gas_level"]
@@ -94,7 +95,7 @@ def status_to_game(status):
         planets.append(planet)
     
     # Scene    
-    scene = Scene(status["scene"]["size"], sc, planets, status["sc"]["pos"], status["scene"]["win_region"], status["scene"]["win_vel"], status["scene"]["completion_score"], status["scene"]["attempt_reduction"], status["scene"]["gas_bonus"], reset=False)    
+    scene = Scene(status["scene"]["size"], sc, planets, status["scene"]["win_region"], status["scene"]["win_vel"], status["scene"]["completion_score"], status["scene"]["attempt_reduction"], status["scene"]["gas_bonus"], reset=False)    
     scene.attempts = status["scene"]["attempts"]
     scene.won, scene.fail = status["won"], status["fail"]
     
@@ -143,7 +144,6 @@ def step(id, prev_status, cmd):
     return status
 
 def load_game(id, screen_x, screen_y):
-
     builder = LevelBuilder(screen_x, screen_y)
     scenes=[builder.create(level) for level in ["easy", "medium"]]
     _game = Game(scenes=scenes[:1], fps=FPS) # load just first level for now 

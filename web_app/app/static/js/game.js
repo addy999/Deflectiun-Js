@@ -121,10 +121,10 @@ function ellipse(context, cx, cy, rx, ry){
     context.arc(1, 1, 1, 0, 2 * Math.PI, false);
 
     context.restore(); // restore to original state
-    context.lineWidth = 5;
+    context.lineWidth = 1;
     context.shadowBlur = 0;
     context.strokeStyle = "white";
-    context.setLineDash([1, 15]);
+    // context.setLineDash([1, 15]);
     context.stroke();
 };
 
