@@ -1,0 +1,33 @@
+<!-- <!doctype html> -->
+<html lang="en">
+    <head>
+        <title>Spaceshots-404t</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.png') }}">
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/404.css') }}" />
+        
+        <!-- JS -->
+        <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>       
+
+    </head>
+    <body>
+        <div id="logo" class="text-center">
+            <img id="logo-img" src="{{ url_for('static', filename='images/' + logo) }}">
+        </div>
+
+        <div class="text-center all-center">
+            <h1 id="heading">Oops, where are you trying to go?</h1>
+            <a href="./"><button id="home" type="button" class="btn btn-primary" >Go home.</button></a>
+        </div>        
+
+        <div class="footer text-center">
+            <p>Developed with <svg class="bi bi-heart-fill" width="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" clip-rule="evenodd"/>
+              </svg> in Toronto.</p>
+        </div>
+    </body>
+</html>

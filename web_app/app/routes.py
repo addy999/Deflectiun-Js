@@ -4,7 +4,6 @@ from app import app
 from flask import render_template, session, request
 from .game import *
 from .db import reset_db
-# from flask_socketio import emit
 
 # Load sprites 
 images_path = os.path.abspath("app/static/images/ship2")
@@ -15,17 +14,23 @@ for i in os.listdir(images_path):
         "src" : "static/images/ship2/"+i,
         "name" : i.replace(".png", "")
     })
+    
+logo = "draft1_min.png"
+    
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html', logo=logo), 404
 
 @app.route('/')
 @app.route('/index')
 def index():    
     session.pop("loaded", None)
     reset_db()
-    return render_template('index.html', planets = [1,2,3], images=imgs, logo="draft1_min.png")
+    return render_template('index.html', planets = [1,2,3], images=imgs, logo=logo)
 
 @app.route('/tutorial')
 def tut():    
-    return render_template('tut.html', logo="draft1_min.png")
+    return render_template('tut.html', logo=logo)
 
 @app.route('/get/<cmd>/<prev_game_status>')
 def get(cmd, prev_game_status):
@@ -44,25 +49,3 @@ def load(id, screen_x, screen_y):
     status = load_game(id, int(screen_x), int(screen_y))
     # session["prev_game_status"] = status
     return json.dumps(status)
-
-# @app.route('/post', methods = ['POST'])
-# def post():
-#     if "loaded" in session:
-#         _id = request.form["id"]
-#         cmd = int(request.form["cmd"])
-#         prev_game_status = json.loads(request.form["game"])    
-#         prev_game_status.update({"init_orbits": session["init_orbits"]})
-#         prev_game_status.update({"sc_start_pos": session["sc_start_pos"]})
-#         status = step(prev_game_status, cmd)
-#         return json.dumps(status)
-#     else:
-#         return json.dumps(False)
-
-
-# @socketio.on('my event')
-# def test_message(message):
-#     emit('my response', {'data': message['data']})
-    
-# @socketio.on('connect')
-# def test_connect():
-#     emit('my response', {'data': 'Connected'})
