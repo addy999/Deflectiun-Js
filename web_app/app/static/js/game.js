@@ -36,6 +36,7 @@ function loadGame() {
     view.style.display = "block";
     view.style.height = screen_y;
     view.style.width = screen_x;
+    $("#buttons").removeClass("all-center");
     $("#load-btn").removeClass("btn-light");
     $("#load-btn").addClass("btn-info");
 

@@ -8,6 +8,7 @@
         <!-- CSS -->
         <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/game.css') }}" />
         <link rel="stylesheet" href="{{ url_for('static', filename='css/hud.css') }}" />
         <link rel="stylesheet" href="{{ url_for('static', filename='css/animate.min.css') }}"/>
         
@@ -23,7 +24,7 @@
     <body key=0>
         <div id="content">
             <div id="logo" class="text-center">
-                <img id="logo-img" src="{{ url_for('static', filename='images/' + logo) }}">
+                <a href="./"><img id="logo-img" src="{{ url_for('static', filename='images/' + logo) }}"></a>
             </div>
 
             <div id="warning" class="text-center"> 
@@ -73,7 +74,7 @@
                 </div>
             </div>
             
-            <div id="buttons" class="text-center">
+            <div id="buttons" class="text-center all-center">
                 <button id="load-btn" type="button" class="btn btn-light" onclick="loadGame()">Load game</button>
                 <a href="./tutorial"><button id="tut-btn" type="button" class="btn btn-primary" >Tutorial</button></a>
                 <!-- <button type="button" onclick="startGame()">Resume game</button>
