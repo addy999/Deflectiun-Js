@@ -10,6 +10,7 @@ html {
 body {
     /* background-color: #000; */
     background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+    position: relative;
 }
 #logo {
     padding: 2vh;
@@ -17,6 +18,12 @@ body {
 #logo-img {
     width: 40vw;
 }
+
+#warning {
+    color: white;
+    display: none;
+}
+
 .asset {
     display: block;
     width: 100%;
@@ -152,20 +159,18 @@ canvas {
   animation:move-twink-back 200s linear infinite;
 }
 
-/* .clouds{
-    background:transparent url(../images/clouds3.png) repeat top center;
-    z-index:2;
-
-  -moz-animation:move-clouds-back 200s linear infinite;
-  -ms-animation:move-clouds-back 200s linear infinite;
-  -o-animation:move-clouds-back 200s linear infinite;
-  -webkit-animation:move-clouds-back 200s linear infinite;
-  animation:move-clouds-back 200s linear infinite;
-} */
+#content {
+    min-height: 100vh;
+    padding-bottom: 5rem;
+}
 
 .footer {
-    padding: 5vh;
+    padding-top: 5vh;
     color: white;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
 }
 .bi{
     color: #ff7089;

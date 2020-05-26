@@ -1,6 +1,5 @@
 <!-- <!doctype html> -->
 <html lang="en">
-<!-- <html> -->
     <head>
         <title>Spaceshots</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,56 +21,64 @@
 
     </head>
     <body key=0>
-        <div id="logo" class="text-center">
-            <img id="logo-img" src="{{ url_for('static', filename='images/' + logo) }}">
-        </div>
-        <div class="view">
-            
-            <div class="text-center asset-container" id="sc">
-                {% for i in images %}
-                    <img src={{ i["src"] }} id={{ i["name"] }} class="asset thrusts">
+        <div id="content">
+            <div id="logo" class="text-center">
+                <img id="logo-img" src="{{ url_for('static', filename='images/' + logo) }}">
+            </div>
+
+            <div id="warning" class="text-center"> 
+                <p>Warning: This game is currently only meant ot be played on a desktop.</p>
+            </div>
+
+            <div class="view">
+                
+                <div class="text-center asset-container" id="sc">
+                    {% for i in images %}
+                        <img src={{ i["src"] }} id={{ i["name"] }} class="asset thrusts">
+                    {% endfor %}
+                </div>
+                {% for p in planets %}
+                    <div class="text-center planet asset-container" id={{ "p" + (planets.index(p)+1).__str__() }}></div>
                 {% endfor %}
-            </div>
-            {% for p in planets %}
-                <div class="text-center planet asset-container" id={{ "p" + (planets.index(p)+1).__str__() }}></div>
-            {% endfor %}
 
-            <canvas class="canvas" id="canvas">.</canvas>
+                <canvas class="canvas" id="canvas">.</canvas>
 
-            <div class="hud">
-                <div class="monitor">
-                    <p><u>Level</u></p>
-                    <p id="level">placeholder</p>
-                    <p><u>Speed (m/s)</u></p>
-                    <p id="speed">0</p>
-                    <p><u>Gas</u></p>
-                    <p id="gas_level">0</p>
+                <div class="hud">
+                    <div class="monitor">
+                        <p><u>Level</u></p>
+                        <p id="level">placeholder</p>
+                        <p><u>Speed (m/s)</u></p>
+                        <p id="speed">0</p>
+                        <p><u>Gas</u></p>
+                        <p id="gas_level">0</p>
+                    </div>
+                    <div class="req">
+                        <p><u>Speed Required (m/s):</u></p>
+                        <p id="speed-req">0</p>
+                        <p><u>Attempts</u></p>
+                        <p id="attempts">0</p>
+                        <p id="msg">...</p>
+                    </div>
                 </div>
-                <div class="req">
-                    <p><u>Speed Required (m/s):</u></p>
-                    <p id="speed-req">0</p>
-                    <p><u>Attempts</u></p>
-                    <p id="attempts">0</p>
-                    <p id="msg">...</p>
+                
+                <!-- Background -->
+                <div class="stars"></div>
+                <div class="twinkling"></div>
+                <!-- <div class="clouds"></div> -->
+                <div id="overlay">
+                    <h1 class="text-center animate__animated" id="overlay-text"></h1>
+                    <div id="sub" class="animate__animated animate__repeat-2">
+                        <p class="text-center"></p>
+                    </div>
                 </div>
             </div>
             
-            <!-- Background -->
-            <div class="stars"></div>
-            <div class="twinkling"></div>
-            <!-- <div class="clouds"></div> -->
-            <div id="overlay">
-                <h1 class="text-center animate__animated" id="overlay-text"></h1>
-                <div id="sub" class="animate__animated animate__repeat-2">
-                    <p class="text-center"></p>
-                </div>
+            <div id="buttons" class="text-center">
+                <button id="load-btn" type="button" class="btn btn-light" onclick="loadGame()">Load game</button>
+                <a href="./tutorial"><button id="tut-btn" type="button" class="btn btn-primary" >Tutorial</button></a>
+                <!-- <button type="button" onclick="startGame()">Resume game</button>
+                <button type="button" onclick="pauseGame()">Pause game</button> -->
             </div>
-        </div>
-        
-        <div id="buttons" class="text-center">
-            <button id="load-btn" type="button" class="btn btn-light" onclick="loadGame()">Load game</button>
-            <!-- <button type="button" onclick="startGame()">Resume game</button>
-            <button type="button" onclick="pauseGame()">Pause game</button> -->
         </div>
 
         <div class="footer text-center">
