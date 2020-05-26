@@ -23,6 +23,10 @@ def index():
     # reset_db()
     return render_template('index.html', planets = [1,2,3], images=imgs, logo="draft1_min.png")
 
+@app.route('/tutorial')
+def tut():    
+    return render_template('tut.html', logo="draft1_min.png")
+
 @app.route('/get/<cmd>/<prev_game_status>')
 def get(cmd, prev_game_status):
     if "loaded" in session:
