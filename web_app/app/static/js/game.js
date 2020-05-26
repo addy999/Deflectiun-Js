@@ -5,7 +5,7 @@ var game_str = "blah";
 var PADDING = 50;
 var FPS = 70;
 var game_on = false;
-var MIN_MS = FPS*1.5;
+var MIN_MS = FPS*1.4;
 var LARGER_MIN_MS = FPS*2;
 var over_ms_limit = 0;
 
@@ -36,6 +36,8 @@ function loadGame() {
     view.style.display = "block";
     view.style.height = screen_y;
     view.style.width = screen_x;
+    $("#load-btn").removeClass("btn-light");
+    $("#load-btn").addClass("btn-info");
 
     // Adjust view 
     canvas.width = canvas.offsetWidth;
@@ -57,7 +59,8 @@ function loadGame() {
     // Draw screen    
     pauseGame();
     sleep(200);
-    $.get( "/load/"+id+"/"+screen_x+"/"+screen_y , update_screen);
+    // $.get( "/load/"+id+"/"+screen_x+"/"+screen_y , update_screen);
+    $.get( {"url" : "/load/"+id+"/"+screen_x+"/"+screen_y , "success" : update_screen, "async":false});
     sleep(200);
     overlayOff();
     startGame();
@@ -69,7 +72,7 @@ function startGame() {
     interval = setInterval(() => {
         var cmd = readCmd();
         var start = new Date().getTime();
-        $.get( "/get/" + cmd + "/" + game_str, (data)=> {
+        $.get({"url" : "/get/" + cmd + "/" + game_str, "success" : (data)=> {
             var dur = new Date().getTime() - start;
             if (dur >= MIN_MS){
                 overlayOn("rgba(0,0,0,0.1)","Waiting for faster connection...");
@@ -95,7 +98,7 @@ function startGame() {
                 // over_ms_limit = 0;
                 update_screen(data);
             }
-        });        
+        }, "async" : false});        
         
     }, FPS);
     game_on = true;
