@@ -66,6 +66,10 @@ body {
     display: none;
 }
 
+#buttons {
+    padding-top: 20px;
+}
+
 .view {
     /* width: 900px;
     height: 700px; */

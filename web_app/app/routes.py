@@ -21,7 +21,7 @@ for i in os.listdir(images_path):
 def index():    
     session.pop("loaded", None)
     # reset_db()
-    return render_template('index.html', planets = [1,2,3], images=imgs, logo="draft1.png")
+    return render_template('index.html', planets = [1,2,3], images=imgs, logo="draft1_min.png")
 
 @app.route('/get/<cmd>/<prev_game_status>')
 def get(cmd, prev_game_status):
