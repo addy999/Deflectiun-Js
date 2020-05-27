@@ -26,24 +26,24 @@ function loadGame() {
     // speedWatch(navigator.connection); // initial check
 
     // Load screen
+    document.getElementById("logo-img").style.width = "25vw";
     var view = document.getElementsByClassName("view")[0];
     var logo = document.getElementById("logo");
     var body = document.body;
     var screen_y = body.clientHeight - logo.clientHeight - Y_PADDING*body.clientHeight;
     var screen_x = body.clientWidth - X_PADDING*body.clientWidth;
 
+    // Adjust view
     view.style.display = "block";
     view.style.height = screen_y;
     view.style.width = screen_x;
     $("#buttons").removeClass("all-center");
     $("#load-btn").removeClass("btn-light");
     $("#load-btn").addClass("btn-info");
-
-    // Adjust view 
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
 
-    // Load elements    
+    // Load game elements    
     let el = document.getElementById("sc")   
     el.style.left='0px';
     el.style.top='0px';        
@@ -142,13 +142,6 @@ function levelWon(score) {
     sub.style.display = "block";
     sub.children[0].textContent = "Score = " + String(score[0]);
     $("#sub").addClass("animate__flash");
-    // sub.children[0].style.color = "black";
-    // sub.children[0].textContent = "- attempt deduction = " + String(score[2]);
-    // sub.children[0].style.color = "red";
-    // sub.children[0].style.transform = "translate(230px, 0px)";
-    // sub.children[1].textContent = "+ gas bonus = " + String(score[1]);
-    // sub.children[1].style.color = "blue";
-    // sub.children[1].style.transform = "translate(315px, 0px)";
 
     // Move forward to next scene
     setTimeout(()=> {
@@ -245,13 +238,6 @@ function update_screen(game_data) {
 
             // Orbits
             ellipse(cxt, p_game_data.orbit.center[0], game_data.scene.size[1] -p_game_data.orbit.center[1], p_game_data.orbit.a, p_game_data.orbit.b);        
-            // cxt.save(); // save state
-            // cxt.fillRect(p_game_data.pos[0], game_data.scene.size[1] -p_game_data.pos[1], 1, 1);
-            // cxt.lineWidth = 25;
-            // cxt.strokeStyle = "#37ff08";
-            // cxt.setLineDash([0,0]);
-            // cxt.restore();
-            // cxt.stroke();
 
             // Hide planet if out of screen
             if((0<=  p_game_data.pos[0] - p_game_data.radius) && ( p_game_data.pos[0] - p_game_data.radius <= game_data.scene.size[0]) && (0 <= p_game_data.pos[1] - p_game_data.radius) && (p_game_data.pos[1] - p_game_data.radius <= game_data.scene.size[1])){
