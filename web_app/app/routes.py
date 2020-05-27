@@ -15,7 +15,8 @@ for i in os.listdir(images_path):
         "name" : i.replace(".png", "")
     })
     
-logo = "draft1_min.png"
+# logo = "draft1_min.png"
+logo = "draft1-beta-01.png"
     
 @app.errorhandler(404)
 def page_not_found(e):
@@ -46,6 +47,6 @@ def get(cmd, prev_game_status):
 def load(id, screen_x, screen_y):
     session["loaded"] = True
     session["id"] = id
-    status = load_game(id, int(screen_x), int(screen_y))
+    status = load_game(id, int(float(screen_x)), int(float(screen_y)))
     # session["prev_game_status"] = status
     return json.dumps(status)
