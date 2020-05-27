@@ -2,17 +2,16 @@ var interval = null;
 var d = 0;
 var id = "abcde";
 var game_str = "blah";
-var PADDING = 50;
+var X_PADDING = 100/1423;
+var Y_PADDING = 50/755;
 var FPS = 70;
 var game_on = false;
 var MIN_MS = FPS*1.4;
-var LARGER_MIN_MS = FPS*2;
-var over_ms_limit = 0;
 
 function loadGame() {
 
     overlayOn("rgba(0,0,0,0.5)", "Loading...");
-    sleep(200);
+    // sleep(200);
 
     var canvas = document.getElementById("canvas");
     var context = canvas.getContext("2d");
@@ -30,8 +29,8 @@ function loadGame() {
     var view = document.getElementsByClassName("view")[0];
     var logo = document.getElementById("logo");
     var body = document.body;
-    var screen_y = body.clientHeight - logo.clientHeight - PADDING;
-    var screen_x = body.clientWidth - PADDING;
+    var screen_y = body.clientHeight - logo.clientHeight - Y_PADDING*body.clientHeight;
+    var screen_x = body.clientWidth - X_PADDING*body.clientWidth;
 
     view.style.display = "block";
     view.style.height = screen_y;
@@ -53,7 +52,7 @@ function loadGame() {
         document.getElementsByClassName(a)[0].style.display = "block";
     })
     document.getElementById("sc").style.display = "block";
-    document.getElementById("buttons").children[0].textContent = "Reset Game";
+    document.getElementById("buttons").children[1].textContent = "Reset Game";
 
     setCmd(0);
 
@@ -207,7 +206,7 @@ function update_screen(game_data) {
     cxt.clearRect(0, 0, canvas.width, canvas.height)
 
     if(!game_data){
-        overlayOn("black", "server error, Load + Start first.");
+        overlayOn("black", "Server error, try refreshing.");
         pauseGame();
     }
     else{
