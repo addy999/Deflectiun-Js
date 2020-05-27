@@ -5,3 +5,5 @@
 web_app/app/__pycache__/*.pyc
 SpaceshotsCore
 .vscode/settings.json
+*.db
+web_app/app/sessions.db
