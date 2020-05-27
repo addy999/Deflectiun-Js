@@ -40,6 +40,10 @@ function loadGame() {
     $("#buttons").removeClass("all-center");
     $("#load-btn").removeClass("btn-light");
     $("#load-btn").addClass("btn-info");
+    // console.log("translateY(" + screen_y.toString() + " px)", "translateY(" + (screen_y+document.getElementById("buttons").clientHeight).toString() + " px)");
+    document.getElementById("buttons").style.transform = "translateY(" + screen_y.toString() + "px)";
+    document.getElementsByClassName("footer")[0].style.transform = "translateY(" + (screen_y+document.getElementById("buttons").clientHeight).toString() + "px)";
+    document.getElementsByClassName("footer")[0].style.position = "unset";
     canvas.width = canvas.offsetWidth;
     canvas.height = canvas.offsetHeight;
 
@@ -223,13 +227,15 @@ function update_screen(game_data) {
 
         var sc_img = document.getElementById(game_data.sc.thrust.dir);
         sc_img.style.transform = "rotate(" + String(-1*game_data.sc.rot) + "rad)";
+        // var y_offset = document.getElementById("logo").clientHeight + document.getElementsByClassName("view")[0].clientHeight;
 
         // Planets
         for (let i=1; i<=game_data.n_planets; i++) {
 
             var p_game_data = game_data["p" + String(i)];
             var p = planets[i-1];
-            p.style.left = p_game_data.pos[0] - p_game_data.radius;
+            console.log("p" + String(i), p_game_data.pos, p_game_data.radius);
+            p.style.left = p_game_data.pos[0] - game_data.sc.size[0];
             p.style.top = game_data.scene.size[1] - p_game_data.pos[1] - p_game_data.radius;
             p.style.width = p_game_data.radius * 2;
             p.style.height = p_game_data.radius * 2;
@@ -240,7 +246,7 @@ function update_screen(game_data) {
             ellipse(cxt, p_game_data.orbit.center[0], game_data.scene.size[1] -p_game_data.orbit.center[1], p_game_data.orbit.a, p_game_data.orbit.b);        
 
             // Hide planet if out of screen
-            if((0<=  p_game_data.pos[0] - p_game_data.radius) && ( p_game_data.pos[0] - p_game_data.radius <= game_data.scene.size[0]) && (0 <= p_game_data.pos[1] - p_game_data.radius) && (p_game_data.pos[1] - p_game_data.radius <= game_data.scene.size[1])){
+            if((0 <=  p_game_data.pos[0] - game_data.sc.size[0]) && (p_game_data.pos[0] - game_data.sc.size[0] <= game_data.scene.size[0]) && (0 <=  game_data.scene.size[1] - p_game_data.pos[1] - p_game_data.radius) && (p_game_data.pos[1] + p_game_data.radius >= 0.0)){
                 p.style.display = "block";
             }
             else{

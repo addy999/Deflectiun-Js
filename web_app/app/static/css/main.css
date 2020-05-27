@@ -11,6 +11,7 @@ body {
     /* background-color: #000; */
     background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
     position: relative;
+    overflow: auto;
 }
 #logo {
     padding: 2vh;
@@ -39,7 +40,7 @@ body {
 }
 
 .footer {
-    padding-top: 5vh;
+    /* padding-top: 5vh; */
     color: white;
     position: absolute;
     left: 0;
