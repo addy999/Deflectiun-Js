@@ -14,5 +14,6 @@ log = logging.getLogger('werkzeug')
 log.disabled = True
 
 if __name__ == "__main__":
+  os.environ["FLASK_ENV"] = "development"
   app.run(debug=True, threaded=False)
   # socketio.run(app)

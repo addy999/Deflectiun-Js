@@ -110,3 +110,8 @@ function closeFullscreen() {
     document.msExitFullscreen();
   }
 }
+
+function toggleFullScreen() {
+  if (!window.screenTop && !window.screenY) {openFullscreen()}
+  else {closeFullscreen()}
+}

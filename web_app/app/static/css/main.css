@@ -39,6 +39,10 @@ body {
     padding-bottom: 5rem;
 }
 
+#fullscreen-btn:active {
+    background-color: #212428;
+}
+
 .footer {
     /* padding-top: 5vh; */
     color: white;

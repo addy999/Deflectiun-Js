@@ -40,6 +40,12 @@
     padding-top: 20vh;
     /* transform: translate(0%,400%); */
 }
+
+#msg {
+    text-shadow: 0 0 13px black;
+    font-size: large;
+}
+
 #sub {
     font-size: 25px;
     color: white;
