@@ -144,7 +144,8 @@ function levelWon(score) {
     // Display scores
     var sub = document.getElementById("sub");
     sub.style.display = "block";
-    sub.children[0].textContent = "Score = " + String(score[0]);
+    sub.children[0].textContent = "Score";
+    sub.children[1].textContent = "+" + String(score[0]);
     $("#sub").addClass("animate__flash");
 
     // Move forward to next scene
@@ -234,7 +235,7 @@ function update_screen(game_data) {
 
             var p_game_data = game_data["p" + String(i)];
             var p = planets[i-1];
-            console.log("p" + String(i), p_game_data.pos, p_game_data.radius);
+            // console.log("p" + String(i), p_game_data.pos, p_game_data.radius);
             p.style.left = p_game_data.pos[0] - game_data.sc.size[0];
             p.style.top = game_data.scene.size[1] - p_game_data.pos[1] - p_game_data.radius;
             p.style.width = p_game_data.radius * 2;
