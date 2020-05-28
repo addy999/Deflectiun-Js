@@ -145,7 +145,7 @@ def step(id, prev_status, cmd):
 
 def load_game(id, screen_x, screen_y):
     builder = LevelBuilder(screen_x, screen_y)
-    scenes=[builder.create(level) for level in ["easy", "medium"]]
+    scenes=[builder.create(level) for level in ["medium", "medium", "medium", "medium"]]
     _game = Game(scenes=scenes[:1], fps=FPS) # load just first level for now 
     
     status = get_status(_game)
