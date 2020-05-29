@@ -112,6 +112,6 @@ function closeFullscreen() {
 }
 
 function toggleFullScreen() {
-  if (!window.screenTop && !window.screenY) {openFullscreen()}
-  else {closeFullscreen()}
+  if (!window.screenTop && !window.screenY) {closeFullscreen()}
+  else {openFullscreen()}
 }

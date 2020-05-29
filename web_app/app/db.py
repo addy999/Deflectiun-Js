@@ -16,7 +16,7 @@ GAMES = {}
 
 def reset_db():
     
-    os.remove(DATABASE)
+    if os.path.isfile(DATABASE): os.remove(DATABASE)
     conn = sqlite3.connect(DATABASE)
     curr = conn.cursor()
     curr.execute("CREATE TABLE sessions (id varchar(5) PRIMARY KEY, scenes data, time float)")
