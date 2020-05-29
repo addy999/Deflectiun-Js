@@ -13,6 +13,7 @@ function loadGame() {
     overlayOn("rgba(0,0,0,0.5)", "Loading...");
     // sleep(200);
 
+    document.getElementById("warning").style.display = "block";
     var canvas = document.getElementById("canvas");
     var context = canvas.getContext("2d");
     id = makeid(5); // session id
@@ -57,6 +58,7 @@ function loadGame() {
     })
     document.getElementById("sc").style.display = "block";
     document.getElementById("buttons").children[1].textContent = "Reset Game";
+    document.getElementById("msg").textContent="";
 
     setCmd(0);
 
@@ -156,6 +158,7 @@ function levelWon(score) {
 
         document.getElementById("msg").textContent="";
         sub.children[0].textContent = "";
+        sub.children[1].textContent = "";
         sub.style.display = "none";
         startGame();
     }, 5000);   
@@ -168,11 +171,12 @@ function gameWon(final_score) {
     overlayOn( "rgba(0,255,0,0.8)", "You won!");
     $("#overlay-text").addClass("animate__tada");
 
-    // // Display scores
-    // var sub = document.getElementById("sub");
-    // sub.style.display = "block";
-    // sub.children[0].textContent = "Score = " + String(score[0]);
-    // $("#sub").addClass("animate__flash");
+    // Display scores
+    var sub = document.getElementById("sub");
+    sub.style.display = "block";
+    sub.children[0].textContent = "Final Score"; 
+    sub.children[1].textContent = String(final_score);
+    $("#sub").addClass("animate__flash");
 
     // // Move forward to next scene
     // setTimeout(()=> {
@@ -296,7 +300,7 @@ function update_screen(game_data) {
 
         // Win
         if (game_data.done) {
-            gameWon();
+            gameWon(game_data.total_score);
         }
         else if(game_data.won) {
             levelWon(game_data.scores);

@@ -8,6 +8,7 @@ $(document).ready(function () {
 
     if(mobileCheck()) {
         document.getElementById("warning").style.display = "block";
+        document.getElementById("warning").textContent = "Warning: This game is currently only meant to be played on a desktop.";
     }
 
 });
