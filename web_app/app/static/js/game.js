@@ -59,6 +59,7 @@ function loadGame() {
     document.getElementById("sc").style.display = "block";
     document.getElementById("buttons").children[1].textContent = "Reset Game";
     document.getElementById("msg").textContent="";
+    randomizePlanets();
 
     setCmd(0);
 
@@ -140,6 +141,7 @@ function ellipse(context, cx, cy, rx, ry){
 function levelWon(score) {
     
     pauseGame();
+    randomizePlanets();
     overlayOn( "#0ca1b5cc", "Nice");
     $("#overlay-text").addClass("animate__bounce");
 

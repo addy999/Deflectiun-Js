@@ -6,10 +6,10 @@
 }
 
 .planet {
-    background-color: orange; /* defines the background color of the image */
-    mask: url(../images/planet.svg) no-repeat center / contain;
-    -webkit-mask: url(../images/planet.svg) no-repeat center / contain;
-}
+    background-color: orange; 
+    mask: url(../images/planets/1.svg) no-repeat center / contain;
+    -webkit-mask: url(../images/planets/1.svg) no-repeat center / contain;
+} 
 
 .asset-container {
     /* position: relative; */
