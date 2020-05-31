@@ -9,68 +9,77 @@ var game_on = false;
 var MIN_MS = FPS*1.4;
 
 function loadGame() {
-
-    overlayOn("rgba(0,0,0,0.5)", "Loading...");
-    // sleep(200);
-
-    document.getElementById("warning").style.display = "block";
-    var canvas = document.getElementById("canvas");
-    var context = canvas.getContext("2d");
-    id = makeid(5); // session id
     
-    // Add listeners 
-    document.body.onkeydown = captureThrustCommand;
-    document.body.onkeyup = captureReleaseThrustCommand;
+    overlayOn("rgba(0,0,0,0.5)", "Loading...");
+    var r = false
+    if (!sessionStorage.getItem("asked_for_tutorial")){
+        r = confirm("View tutorial?");
+        sessionStorage.setItem("asked_for_tutorial", true);
+    }
+    if(r) {
+        window.location.href = "./tutorial";        
+    }
+    else {
 
-    // Speed checks
-    // navigator.connection.onchange = speedWatch;
-    // speedWatch(navigator.connection); // initial check
+        document.getElementById("warning").style.display = "block";
+        var canvas = document.getElementById("canvas");
+        var context = canvas.getContext("2d");
+        id = makeid(5); // session id
+        
+        // Add listeners 
+        document.body.onkeydown = captureThrustCommand;
+        document.body.onkeyup = captureReleaseThrustCommand;
 
-    // Load screen
-    document.getElementById("logo-img").style.width = "25vw";
-    var view = document.getElementsByClassName("view")[0];
-    var logo = document.getElementById("logo");
-    var body = document.body;
-    var screen_y = body.clientHeight - logo.clientHeight - Y_PADDING*body.clientHeight;
-    var screen_x = body.clientWidth - X_PADDING*body.clientWidth;
+        // Speed checks
+        // navigator.connection.onchange = speedWatch;
+        // speedWatch(navigator.connection); // initial check
 
-    // Adjust view
-    view.style.display = "block";
-    view.style.height = screen_y;
-    view.style.width = screen_x;
-    $("#buttons").removeClass("all-center");
-    $("#load-btn").removeClass("btn-light");
-    $("#load-btn").addClass("btn-info");
-    // console.log("translateY(" + screen_y.toString() + " px)", "translateY(" + (screen_y+document.getElementById("buttons").clientHeight).toString() + " px)");
-    document.getElementById("buttons").style.transform = "translateY(" + screen_y.toString() + "px)";
-    document.getElementsByClassName("footer")[0].style.transform = "translateY(" + (screen_y+document.getElementById("buttons").clientHeight).toString() + "px)";
-    document.getElementsByClassName("footer")[0].style.position = "unset";
-    canvas.width = canvas.offsetWidth;
-    canvas.height = canvas.offsetHeight;
+        // Load screen
+        document.getElementById("logo-img").style.width = "25vw";
+        var view = document.getElementsByClassName("view")[0];
+        var logo = document.getElementById("logo");
+        var body = document.body;
+        var screen_y = body.clientHeight - logo.clientHeight - Y_PADDING*body.clientHeight;
+        var screen_x = body.clientWidth - X_PADDING*body.clientWidth;
 
-    // Load game elements    
-    let el = document.getElementById("sc")   
-    el.style.left='0px';
-    el.style.top='0px';        
-    var to_display = Array("stars", "twinkling", "hud");
-    to_display.forEach((a) => {
-        document.getElementsByClassName(a)[0].style.display = "block";
-    })
-    document.getElementById("sc").style.display = "block";
-    document.getElementById("buttons").children[1].textContent = "Reset Game";
-    document.getElementById("msg").textContent="";
-    randomizePlanets();
+        // Adjust view
+        view.style.display = "block";
+        view.style.height = screen_y;
+        view.style.width = screen_x;
+        $("#buttons").removeClass("all-center");
+        $("#load-btn").removeClass("btn-light");
+        $("#load-btn").addClass("btn-info");
+        // console.log("translateY(" + screen_y.toString() + " px)", "translateY(" + (screen_y+document.getElementById("buttons").clientHeight).toString() + " px)");
+        document.getElementById("buttons").style.transform = "translateY(" + screen_y.toString() + "px)";
+        document.getElementsByClassName("footer")[0].style.transform = "translateY(" + (screen_y+document.getElementById("buttons").clientHeight).toString() + "px)";
+        document.getElementsByClassName("footer")[0].style.position = "unset";
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
 
-    setCmd(0);
+        // Load game elements    
+        let el = document.getElementById("sc")   
+        el.style.left='0px';
+        el.style.top='0px';        
+        var to_display = Array("stars", "twinkling", "hud");
+        to_display.forEach((a) => {
+            document.getElementsByClassName(a)[0].style.display = "block";
+        })
+        document.getElementById("sc").style.display = "block";
+        document.getElementById("buttons").children[1].textContent = "Reset Game";
+        document.getElementById("msg").textContent="";
+        randomizePlanets();
 
-    // Draw screen    
-    pauseGame();
-    sleep(200);
-    // $.get( "/load/"+id+"/"+screen_x+"/"+screen_y , update_screen);
-    $.get( {"url" : "/load/"+id+"/"+screen_x+"/"+screen_y , "success" : update_screen, "async":false});
-    sleep(200);
-    overlayOff();
-    startGame();
+        setCmd(0);
+
+        // Draw screen    
+        pauseGame();
+        sleep(200);
+        // $.get( "/load/"+id+"/"+screen_x+"/"+screen_y , update_screen);
+        $.get( {"url" : "/load/"+id+"/"+screen_x+"/"+screen_y , "success" : update_screen, "async":false});
+        sleep(200);
+        overlayOff();
+        startGame();
+    }
     
 }
 
@@ -82,7 +91,7 @@ function startGame() {
         $.get({"url" : "/get/" + cmd + "/" + game_str, "success" : (data)=> {
             var dur = new Date().getTime() - start;
             if (dur >= MIN_MS){
-                overlayOn("rgba(0,0,0,0.1)","Waiting for faster connection...");
+                overlayOn("rgba(0,0,0,0.1)","Waiting for faster comms relay...");
                 // over_ms_limit += 1;
             }
             // if (dur >= LARGER_MIN_MS) 

@@ -11,4 +11,6 @@ $(document).ready(function () {
         document.getElementById("warning").textContent = "Warning: This game is currently only meant to be played on a desktop.";
     }
 
+    showSlides(slideIndex);
+
 });
