@@ -247,7 +247,7 @@ function update_screen(game_data) {
             p.style.width = p_game_data.radius * 2;
             p.style.height = p_game_data.radius * 2;
             p.style.transform = "rotate(" + String(d) + "deg)";
-            d += 0.1;
+            d += 0.2;
 
             // Orbits
             ellipse(cxt, p_game_data.orbit.center[0], game_data.scene.size[1] -p_game_data.orbit.center[1], p_game_data.orbit.a, p_game_data.orbit.b);        
@@ -268,7 +268,6 @@ function update_screen(game_data) {
                 planets[i].style.display = "none";
             }
         }
-
 
         // Win region
         var points = game_data.scene.win_region;
