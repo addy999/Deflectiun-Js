@@ -147,7 +147,7 @@ def load_game(id, screen_x, screen_y):
     
     # print("************ Loading {0}, {1} ************".format(screen_x, screen_y))
     builder = LevelBuilder(screen_x, screen_y)
-    scenes=[builder.create(level) for level in ["easy", "easy", "medium", "medium"]]
+    scenes=[builder.create(level) for level in ["easy", "easy", "medium", "medium", "hard", "hard"]]
     _game = Game(scenes=scenes[:1], fps=FPS) # load just first level for now 
     
     status = get_status(_game)

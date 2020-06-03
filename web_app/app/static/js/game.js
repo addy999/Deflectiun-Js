@@ -151,7 +151,7 @@ function levelWon(score) {
     
     pauseGame();
     randomizePlanets();
-    overlayOn( "#0ca1b5cc", "Nice");
+    overlayOn( "#0ca1b5cc", "Solar system passed!");
     $("#overlay-text").addClass("animate__bounce");
 
     // Display scores
@@ -262,6 +262,7 @@ function update_screen(game_data) {
             ellipse(cxt, p_game_data.orbit.center[0], game_data.scene.size[1] -p_game_data.orbit.center[1], p_game_data.orbit.a, p_game_data.orbit.b);        
 
             // Hide planet if out of screen
+            // p.style.display = "block";
             if((0 <=  p_game_data.pos[0] - game_data.sc.size[0]) && (p_game_data.pos[0] - game_data.sc.size[0] <= game_data.scene.size[0]) && (0 <=  game_data.scene.size[1] - p_game_data.pos[1] - p_game_data.radius) && (p_game_data.pos[1] + p_game_data.radius >= 0.0)){
                 p.style.display = "block";
             }
