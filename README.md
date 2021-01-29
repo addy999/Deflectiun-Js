@@ -1,1 +1,1 @@
-# spaceshots_core
+# Spacehsots Front-end - JS
